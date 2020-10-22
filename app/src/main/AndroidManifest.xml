@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoFinalAndroid">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Vista.ViewRegistro"></activity>
+        <activity android:name=".Vista.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
