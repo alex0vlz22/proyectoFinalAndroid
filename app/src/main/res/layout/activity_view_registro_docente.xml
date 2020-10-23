@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.ViewRegistroEstudiante">
+    tools:context=".Vista.ViewRegistroDocente">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:id="@+id/jtxtTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Estudiante"
+                android:text="Docente"
                 android:textColor="#000000"
                 android:textSize="24sp" />
 
@@ -164,51 +164,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="12dp" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Selecciona tu grado:"
-                android:textColor="#000000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="134dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="1" />
-
-                <Spinner
-                    android:id="@+id/jSpnGradoNumero"
-                    android:layout_width="185dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:layout_width="78dp"
-                    android:layout_height="26dp"
-                    android:layout_weight="1" />
-
-                <Spinner
-                    android:id="@+id/jSpnGradoLetra"
-                    android:layout_width="189dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:layout_width="150dp"
-                    android:layout_height="26dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="23dp" />
-
             <Button
                 android:id="@+id/jbtnRegistrarme"
                 android:layout_width="match_parent"
@@ -217,4 +172,5 @@
                 tools:text="¡Registrarme!" />
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
