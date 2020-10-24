@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Vista.ViewDocente"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Docente"
+        android:textSize="28dp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Clases"
+        android:textSize="18dp"/>
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Foros"
+        android:textSize="18dp"/>
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:text="Editar perfil"
+        android:textSize="18dp"/>
+
+
+</LinearLayout>
