@@ -25,7 +25,7 @@ public class CtlDocente {
     // así, el método en general lo controlaré como 'no hubo una respuesta esperada'
     int auxValidaciones = 0;
 
-    public boolean registrarse(Docente docente, int aux) {
+    public boolean registrarse(Docente docente, int aux) throws OcurrioUnErrorGuardandoException{
         // siempre que llame este método le enviaré por defecto el 0 como aux
         this.auxValidaciones = aux;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
@@ -39,7 +39,7 @@ public class CtlDocente {
                         Docente doc = response.body();
                         if (doc == null) {
                             auxValidaciones++;
-                            //throw new OcurrioUnErrorGuardandoException("No se ha podido guardar.");
+                            throw new OcurrioUnErrorGuardandoException("No se ha podido guardar.");
                         }
                     }
                 } catch (Exception e) {
@@ -58,5 +58,4 @@ public class CtlDocente {
         else
             return true;
     }
-
 }

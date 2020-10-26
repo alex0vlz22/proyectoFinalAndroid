@@ -53,13 +53,17 @@ public class ViewRegistroDocente extends AppCompatActivity {
         if (validarCampos()) {
             Toast.makeText(this, "Llena todos los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         } else {
+            try {
                 if (this.controlador.registrarse(generarDocente(), 0)) {
                     Toast.makeText(this, "¡Has sido registrado!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(this, MainActivity.class);
                     startActivity(i);
-                }else{
+                } else {
                     Toast.makeText(this, "Algo salió mal.", Toast.LENGTH_SHORT).show();
                 }
+            } catch (OcurrioUnErrorGuardandoException e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
