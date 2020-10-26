@@ -3,7 +3,9 @@ package com.example.proyectofinalandroid.Controlador;
 import android.app.Service;
 import android.widget.Toast;
 
+import com.example.proyectofinalandroid.Exception.ContrasenaIncorrectaExcepcion;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
+import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
 
@@ -24,8 +26,9 @@ public class CtlDocente {
     // no puedo retornar false ni una excepción, comparo si esta variable es diferente de 0, de ser
     // así, el método en general lo controlaré como 'no hubo una respuesta esperada'
     int auxValidaciones = 0;
+    Docente auxDocente = null;
 
-    public boolean registrarse(Docente docente, int aux) throws OcurrioUnErrorGuardandoException{
+    public boolean registrarse(Docente docente, int aux) throws OcurrioUnErrorGuardandoException {
         // siempre que llame este método le enviaré por defecto el 0 como aux
         this.auxValidaciones = aux;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
@@ -57,5 +60,45 @@ public class CtlDocente {
             return false;
         else
             return true;
+    }
+
+    public Docente buscar(String correo, String contrasena, int aux) throws UsuarioNoEncontradoException, ContrasenaIncorrectaExcepcion {
+
+        // siempre que llame este método le enviaré por defecto el 0 como aux
+        this.auxValidaciones = aux;
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
+        Call<Docente> docenteAfter = serviceDocente.buscarPorCorreo(correo);
+        docenteAfter.enqueue(new Callback<Docente>() {
+            @Override
+            public void onResponse(Call<Docente> call, Response<Docente> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Docente doc = response.body();
+                        auxDocente = doc;
+                        if (doc == null) {
+                            auxValidaciones++;
+                            throw new UsuarioNoEncontradoException("No se ha encontrado un usuario por éste correo.");
+                        } else {
+                            if (!doc.getContrasena().equalsIgnoreCase(contrasena)) {
+                                auxValidaciones++;
+                                throw new ContrasenaIncorrectaExcepcion("Contraseña incorrecta.");
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Docente> call, Throwable t) {
+                auxValidaciones++;
+            }
+        });
+        if (auxValidaciones != 0)
+            return null;
+        else
+            return auxDocente;
     }
 }

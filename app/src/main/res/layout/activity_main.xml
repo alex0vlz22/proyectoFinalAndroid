@@ -41,7 +41,7 @@
                     android:layout_height="26dp" />
 
                 <EditText
-                    android:id="@+id/jSpace3"
+                    android:id="@+id/jtxtCorreoLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -49,7 +49,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/jtxtContra"
+                    android:id="@+id/jtxtContraLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -64,6 +64,7 @@
                     android:id="@+id/jbtnIngresar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="ingresar"
                     android:text="Ingresar"
                     app:backgroundTint="#4CAF50" />
 
