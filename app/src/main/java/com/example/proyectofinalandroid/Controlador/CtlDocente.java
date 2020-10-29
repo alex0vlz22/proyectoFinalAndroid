@@ -1,3 +1,4 @@
+
 package com.example.proyectofinalandroid.Controlador;
 
 import android.app.Service;
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CtlDocente {
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.63:1000";
     // Malejo url
     // final String url = "http://192.168.1.4:1000";
 
@@ -26,7 +27,6 @@ public class CtlDocente {
     // no puedo retornar false ni una excepción, comparo si esta variable es diferente de 0, de ser
     // así, el método en general lo controlaré como 'no hubo una respuesta esperada'
     int auxValidaciones = 0;
-    Docente auxDocente = null;
 
     public boolean registrarse(Docente docente, int aux) throws OcurrioUnErrorGuardandoException {
         // siempre que llame este método le enviaré por defecto el 0 como aux
@@ -62,43 +62,4 @@ public class CtlDocente {
             return true;
     }
 
-    public Docente buscar(String correo, String contrasena, int aux) throws UsuarioNoEncontradoException, ContrasenaIncorrectaExcepcion {
-
-        // siempre que llame este método le enviaré por defecto el 0 como aux
-        this.auxValidaciones = aux;
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
-        ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
-        Call<Docente> docenteAfter = serviceDocente.buscarPorCorreo(correo);
-        docenteAfter.enqueue(new Callback<Docente>() {
-            @Override
-            public void onResponse(Call<Docente> call, Response<Docente> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        Docente doc = response.body();
-                        auxDocente = doc;
-                        if (doc == null) {
-                            auxValidaciones++;
-                            throw new UsuarioNoEncontradoException("No se ha encontrado un usuario por éste correo.");
-                        } else {
-                            if (!doc.getContrasena().equalsIgnoreCase(contrasena)) {
-                                auxValidaciones++;
-                                throw new ContrasenaIncorrectaExcepcion("Contraseña incorrecta.");
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Docente> call, Throwable t) {
-                auxValidaciones++;
-            }
-        });
-        if (auxValidaciones != 0)
-            return null;
-        else
-            return auxDocente;
-    }
 }

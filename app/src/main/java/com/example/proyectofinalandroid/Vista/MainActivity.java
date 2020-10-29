@@ -19,6 +19,14 @@ import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.R;
+import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Button registrarse;
     CtlDocente controladorDocente;
     CtlEstudiante controladorEstudiante;
+    Docente auxDocente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         registrarse = (Button) findViewById(R.id.jbtnRegistrarse);
         controladorDocente = new CtlDocente();
         controladorEstudiante = new CtlEstudiante();
+        auxDocente = null;
 
         // Línea para ocultar la barra de navegación por defecto del android studio
         getSupportActionBar().hide();
@@ -44,15 +54,69 @@ public class MainActivity extends AppCompatActivity {
 
     public void ingresar(View view) {
         if (validarCampos()) {
-            if (buscarDocente() != null) {
-                Intent i = new Intent(this, ViewDocente.class);
-                startActivity(i);
-            } else if (buscarEstudiante() != null) {
-                Intent i = new Intent(this, ViewEstudiante.class);
-                startActivity(i);
-            } else {
-                Toast.makeText(this, "No se ha encontrado un usuario por dicho correo.", Toast.LENGTH_SHORT).show();
-            }
+            // aquí inicia el procedimiento para buscar un docente por los datos ingresados
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+            ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
+            Call<Docente> docent = serviceDocente.buscarPorCorreo(correo.getText().toString());
+            docent.enqueue(new Callback<Docente>() {
+                @Override
+                public void onResponse(Call<Docente> call, Response<Docente> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            Docente doc = response.body();
+                            if (!doc.getContrasena().equalsIgnoreCase(contrasena.getText().toString())) {
+                                imprimir("contraseña incorrecta");
+                                auxDocente = null;
+                                return;
+                            }
+                            Intent i = new Intent(getApplicationContext(), ViewDocente.class);
+                            i.putExtra("docenteId", doc.getId());
+                            startActivity(i);
+                            return;
+                        } else {
+                            // en caso de no encontrar docente, hago el mismo procedimiento para buscar
+                            // un estudiante
+                            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+                            ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
+                            Call<Estudiante> student = serviceEstudiante.buscarPorCorreo(correo.getText().toString());
+                            student.enqueue(new Callback<Estudiante>() {
+                                @Override
+                                public void onResponse(Call<Estudiante> call, Response<Estudiante> response) {
+                                    try {
+                                        if (response.isSuccessful()) {
+                                            Estudiante est = response.body();
+                                            if (!est.getContrasena().equalsIgnoreCase(contrasena.getText().toString())) {
+                                                imprimir("contraseña incorrecta");
+                                                return;
+                                            }
+                                            Intent i = new Intent(getApplicationContext(), ViewEstudiante.class);
+                                            i.putExtra("estudianteId", est.getId());
+                                            startActivity(i);
+                                            return;
+                                        } else {
+                                            imprimir("No se ha encontrado una cuenta por el correo: " + correo.getText().toString());
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        imprimir(e.getMessage());
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Estudiante> call, Throwable t) {
+                                    Toast.makeText(MainActivity.this, "Falló.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        imprimir(e.getMessage());
+                    }
+                }
+                @Override
+                public void onFailure(Call<Docente> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "Falló.", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             Toast.makeText(this, "Por favor rellenar los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         }
@@ -66,16 +130,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Docente buscarDocente() {
-        try {
-            Docente d = this.controladorDocente.buscar(correo.getText().toString(), contrasena.getText().toString(), 0);
-            return d;
-        } catch (ContrasenaIncorrectaExcepcion e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            return null;
-        } catch (UsuarioNoEncontradoException e) {
-            return null;
-        }
+    private void ingresarDocente() {
+
+    }
+
+    private void imprimir(String msg) {
+        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private Estudiante buscarEstudiante() {

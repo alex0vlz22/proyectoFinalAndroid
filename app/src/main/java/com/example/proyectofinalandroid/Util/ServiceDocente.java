@@ -29,7 +29,7 @@ public interface ServiceDocente {
     @GET("/docentes")
     public Call<List<Docente>> listar();
 
-    @GET("/buscarDocentePorCorreo/{correo}")
-    public Call<Docente> buscarPorCorreo(@Path("correo") String correo);
+    @GET("/buscarDocentePorCorreo/{correoDocente}")
+    public Call<Docente> buscarPorCorreo(@Path("correoDocente") String correo);
 
 }

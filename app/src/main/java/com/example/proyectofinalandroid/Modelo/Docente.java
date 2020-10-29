@@ -8,12 +8,12 @@ public class Docente {
     private String nombre, apellido;
     private long telefono;
     private String correo, contrasena;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 
     public Docente() {
     }
 
-    public Docente(int id, long documento, String nombre, String apellido, long telefono, String correo, String contrasena, Date fechaNacimiento) {
+    public Docente(int id, long documento, String nombre, String apellido, long telefono, String correo, String contrasena, String fechaNacimiento) {
         this.id = id;
         this.documento = documento;
         this.nombre = nombre;
@@ -80,11 +80,11 @@ public class Docente {
         this.contrasena = contrasena;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -98,7 +98,7 @@ public class Docente {
                 ", telefono=" + telefono +
                 ", correo='" + correo + '\'' +
                 ", contrasena='" + contrasena + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
                 '}';
     }
 }

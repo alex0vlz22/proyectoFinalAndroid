@@ -75,14 +75,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
         docente.setTelefono(Long.parseLong(this.telefono.getText().toString()));
         docente.setCorreo(this.correo.getText().toString());
         docente.setContrasena(this.contrasena.getText().toString());
-        // para parsear de string a util date
-        Date date1 = null;
-        try {
-            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(this.calendario.getText().toString());
-        } catch (Exception e) {
-            Toast.makeText(this, "Ocurrió un error parseando la fecha.", Toast.LENGTH_SHORT).show();
-        }
-        docente.setFechaNacimiento(date1);
+        docente.setFechaNacimiento(this.calendario.getText().toString());
         return docente;
     }
 

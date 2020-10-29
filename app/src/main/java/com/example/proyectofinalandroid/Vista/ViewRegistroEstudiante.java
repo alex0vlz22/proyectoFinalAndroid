@@ -88,14 +88,7 @@ public class ViewRegistroEstudiante extends AppCompatActivity{
         estudiante.setTelefono(Long.parseLong(this.telefono.getText().toString()));
         estudiante.setCorreo(this.correo.getText().toString());
         estudiante.setContrasena(this.contrasena.getText().toString());
-        // para parsear de string a util date
-        Date date1 = null;
-        try {
-            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(this.calendario.getText().toString());
-        } catch (Exception e) {
-            Toast.makeText(this, "Ocurrió un error parseando la fecha.", Toast.LENGTH_SHORT).show();
-        }
-        estudiante.setFechaNacimiento(date1);
+        estudiante.setFechaNacimiento(this.calendario.getText().toString());
         String grado = gradoNumero.getSelectedItem().toString() + gradoLetra.getSelectedItem().toString();
         estudiante.setGrado(grado);
         return estudiante;

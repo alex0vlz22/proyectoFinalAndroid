@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CtlEstudiante {
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.63:1000";
     // Malejo url
     // final String url = "http://192.168.1.4:1000";
 
