@@ -15,13 +15,22 @@ import android.widget.Toast;
 
 import com.example.proyectofinalandroid.Controlador.CtlEstudiante;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
+import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 // Éste import tuve que agregarlo manualmente
 import com.example.proyectofinalandroid.R;
+import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ViewRegistroEstudiante extends AppCompatActivity{
@@ -66,18 +75,73 @@ public class ViewRegistroEstudiante extends AppCompatActivity{
         if (validarCampos()) {
             Toast.makeText(this, "Llena todos los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         } else {
-            try {
-                if (this.controlador.registrarse(generarEstudiante(), 0)) {
-                    Toast.makeText(this, "¡Has sido registrado!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(this, MainActivity.class);
-                    startActivity(i);
-                } else {
-                    Toast.makeText(this, "Algo salió mal.", Toast.LENGTH_SHORT).show();
+
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+            ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
+            Call<Docente> docent = serviceDocente.buscarPorCorreo(correo.getText().toString());
+            docent.enqueue(new Callback<Docente>() {
+                @Override
+                public void onResponse(Call<Docente> call, Response<Docente> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            Docente doc = response.body();
+                            imprimir("Ya hay una cuenta registrada por éste correo.");
+                            return;
+                        } else {
+                            // en caso de no encontrar docente, hago el mismo procedimiento para buscar
+                            // un estudiante
+                            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+                            ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
+                            Call<Estudiante> student = serviceEstudiante.buscarPorCorreo(correo.getText().toString());
+                            student.enqueue(new Callback<Estudiante>() {
+                                @Override
+                                public void onResponse(Call<Estudiante> call, Response<Estudiante> response) {
+                                    try {
+                                        if (response.isSuccessful()) {
+                                            Estudiante est = response.body();
+                                            imprimir("Ya hay una cuenta registrada por éste correo.");
+                                            return;
+                                        } else {
+                                            // En caso de que no se encuentre un docente ni estudiante por el correo
+                                            // ingresado, llega hasta aquí.
+                                            try {
+                                                if (controlador.registrarse(generarEstudiante(), 0)) {
+                                                    Toast.makeText(getApplicationContext(), "¡Has sido registrado!", Toast.LENGTH_SHORT).show();
+                                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(i);
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Algo salió mal.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } catch (OcurrioUnErrorGuardandoException e) {
+                                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        imprimir(e.getMessage());
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Estudiante> call, Throwable t) {
+                                    Toast.makeText(ViewRegistroEstudiante.this, "Falló.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        imprimir(e.getMessage());
+                    }
                 }
-            } catch (OcurrioUnErrorGuardandoException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onFailure(Call<Docente> call, Throwable t) {
+                    Toast.makeText(ViewRegistroEstudiante.this, "Falló.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+    }
+
+    private void imprimir(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     private Estudiante generarEstudiante() {
