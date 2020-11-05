@@ -32,6 +32,14 @@
         android:textSize="18dp" />
 
     <Button
+        android:id="@+id/listaForosBtn"
+        android:layout_width="600px"
+        android:layout_height="wrap_content"
+        android:onClick="listarForos"
+        android:text="Listado de Foros"
+        android:textSize="18dp" />
+
+    <Button
         android:layout_width="600px"
         android:layout_height="wrap_content"
         android:text="Editar perfil"

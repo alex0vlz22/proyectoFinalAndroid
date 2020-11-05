@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoFinalAndroid">
-        <activity android:name=".Vista.ViewRegistroForo"></activity>
+        <activity android:name=".Vista.ListadoForos"></activity>
+        <activity android:name=".Vista.ViewRegistroForo" />
         <activity android:name=".Vista.ViewEstudiante" />
         <activity android:name=".Vista.ViewDocente" />
         <activity android:name=".Vista.ViewRegistroDocente" />

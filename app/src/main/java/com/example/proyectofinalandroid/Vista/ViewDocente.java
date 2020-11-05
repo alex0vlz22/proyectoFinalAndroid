@@ -32,4 +32,11 @@ public class ViewDocente extends AppCompatActivity {
         i.putExtra("documento", documento);
         startActivity(i);
     }
+
+    public void listarForos(View view) {
+        Intent intent = new Intent(getApplicationContext(), ListadoForos.class);
+        intent.putExtra("docenteId", idDocente);
+        intent.putExtra("documento", documento);
+        startActivity(intent);
+    }
 }
