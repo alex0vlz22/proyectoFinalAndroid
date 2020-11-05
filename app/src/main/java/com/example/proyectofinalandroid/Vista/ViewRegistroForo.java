@@ -43,7 +43,7 @@ public class ViewRegistroForo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_registro_foro);
-        titulo = (TextView) findViewById(R.id.jtxtTitulo);
+        titulo = (TextView) findViewById(R.id.campoTitulo);
         descripcion = (TextView) findViewById(R.id.jtxtDescripcion);
         limiteParticipacion = (TextView) findViewById(R.id.jtxtLimite);
         estado = (Switch) findViewById(R.id.switchDisponible);
@@ -105,6 +105,7 @@ public class ViewRegistroForo extends AppCompatActivity {
     }
 
     private void limpiar() {
+
         titulo.setText("");
         descripcion.setText("");
         limiteParticipacion.setText("");

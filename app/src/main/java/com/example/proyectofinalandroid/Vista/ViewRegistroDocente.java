@@ -44,7 +44,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
         setContentView(R.layout.activity_view_registro_docente);
 
         controlador = new CtlDocente();
-        documento = (EditText) findViewById(R.id.txtTitulo);
+        documento = (EditText) findViewById(R.id.campoTitulo);
         nombre = (EditText) findViewById(R.id.jtxtDescripcion);
         apellido = (EditText) findViewById(R.id.jtxtApellido);
         telefono = (EditText) findViewById(R.id.jtxtLimite);
@@ -137,7 +137,10 @@ public class ViewRegistroDocente extends AppCompatActivity {
     }
 
     private Docente generarDocente() {
-        Docente docente = new Docente();
+        Docente docente = new Docente(Long.parseLong(this.documento.getText().toString()), this.nombre.getText().toString()
+                , this.apellido.getText().toString(), Long.parseLong(this.telefono.getText().toString()), this.correo.getText().toString(),
+                this.contrasena.getText().toString(), this.calendario.getText().toString());
+        /*
         docente.setDocumento(Long.parseLong(this.documento.getText().toString()));
         docente.setNombre(this.nombre.getText().toString());
         docente.setApellido(this.apellido.getText().toString());
@@ -145,6 +148,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
         docente.setCorreo(this.correo.getText().toString());
         docente.setContrasena(this.contrasena.getText().toString());
         docente.setFechaNacimiento(this.calendario.getText().toString());
+*/
         return docente;
     }
 

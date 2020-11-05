@@ -49,7 +49,7 @@ public class ViewRegistroEstudiante extends AppCompatActivity {
         setContentView(R.layout.activity_view_registro);
 
         controlador = new CtlEstudiante();
-        documento = (EditText) findViewById(R.id.txtTitulo);
+        documento = (EditText) findViewById(R.id.campoTitulo);
         nombre = (EditText) findViewById(R.id.jtxtDescripcion);
         apellido = (EditText) findViewById(R.id.jtxtApellido);
         telefono = (EditText) findViewById(R.id.jtxtLimite);

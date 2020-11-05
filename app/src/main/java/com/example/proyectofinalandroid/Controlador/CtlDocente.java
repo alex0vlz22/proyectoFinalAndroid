@@ -10,6 +10,8 @@ import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
 
+import java.io.Console;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,7 @@ public class CtlDocente {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+
                 }
             }
 

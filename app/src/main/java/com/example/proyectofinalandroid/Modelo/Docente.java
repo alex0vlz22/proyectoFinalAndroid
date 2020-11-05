@@ -13,8 +13,7 @@ public class Docente {
     public Docente() {
     }
 
-    public Docente(int id, long documento, String nombre, String apellido, long telefono, String correo, String contrasena, String fechaNacimiento) {
-        this.id = id;
+    public Docente(long documento, String nombre, String apellido, long telefono, String correo, String contrasena, String fechaNacimiento) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
