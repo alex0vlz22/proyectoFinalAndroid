@@ -33,9 +33,14 @@ public class ViewRegistroForo extends AppCompatActivity {
     TextView titulo, descripcion, limiteParticipacion;
     Switch estado;
     CtlForo controladorForo;
-    //    final String url = "http://192.168.1.63:1000";
+
+    // Junior url
+       final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.9:1000";
+    //final String url = "http://192.168.1.9:1000";
+
+    
+
     Docente docente = new Docente();
     long documento;
 
