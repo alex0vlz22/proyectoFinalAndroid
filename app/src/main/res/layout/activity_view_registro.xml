@@ -39,7 +39,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/jtxtDocumento"
+                android:id="@+id/txtTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -58,7 +58,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/jtxtNombre"
+                android:id="@+id/jtxtDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -96,7 +96,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/jtxtTelefono"
+                android:id="@+id/jtxtLimite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

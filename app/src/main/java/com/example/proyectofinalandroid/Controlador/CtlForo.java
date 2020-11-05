@@ -1,14 +1,10 @@
-
 package com.example.proyectofinalandroid.Controlador;
 
-import android.app.Service;
-import android.widget.Toast;
-
-import com.example.proyectofinalandroid.Exception.ContrasenaIncorrectaExcepcion;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
-import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
-import com.example.proyectofinalandroid.Modelo.Docente;
-import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Modelo.Estudiante;
+import com.example.proyectofinalandroid.Modelo.Foro;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
+import com.example.proyectofinalandroid.Util.ServiceForo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,31 +12,30 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CtlDocente {
-
+public class CtlForo {
     // Junior url
-    //final String url = "http://192.168.1.63:1000";
+    //    final String url = "http://192.168.1.63:1000";
     // Malejo url
-    final String url = "http://192.168.1.4:1000";
+    final String url = "http://192.168.1.9:1000";
 
     // esta variable es creada para comparar si su valor aún es 0 en unos lugares del código donde
     // no puedo retornar false ni una excepción, comparo si esta variable es diferente de 0, de ser
     // así, el método en general lo controlaré como 'no hubo una respuesta esperada'
     int auxValidaciones = 0;
 
-    public boolean registrarse(Docente docente, int aux) throws OcurrioUnErrorGuardandoException {
+    public boolean registrarse(Foro foro, int aux) throws OcurrioUnErrorGuardandoException {
         // siempre que llame este método le enviaré por defecto el 0 como aux
         this.auxValidaciones = aux;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
-        ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
-        Call<Docente> docenteAfter = serviceDocente.guardar(docente);
-        docenteAfter.enqueue(new Callback<Docente>() {
+        ServiceForo serviceForo = retrofit.create(ServiceForo.class);
+        Call<Foro> foroAfter = serviceForo.guardar(foro);
+        foroAfter.enqueue(new Callback<Foro>() {
             @Override
-            public void onResponse(Call<Docente> call, Response<Docente> response) {
+            public void onResponse(Call<Foro> call, Response<Foro> response) {
                 try {
                     if (response.isSuccessful()) {
-                        Docente doc = response.body();
-                        if (doc == null) {
+                        Foro f = response.body();
+                        if (f == null) {
                             auxValidaciones++;
                             throw new OcurrioUnErrorGuardandoException("No se ha podido guardar.");
                         }
@@ -51,7 +46,7 @@ public class CtlDocente {
             }
 
             @Override
-            public void onFailure(Call<Docente> call, Throwable t) {
+            public void onFailure(Call<Foro> call, Throwable t) {
                 auxValidaciones++;
             }
         });
@@ -61,5 +56,4 @@ public class CtlDocente {
         else
             return true;
     }
-
 }

@@ -27,8 +27,9 @@
     <Button
         android:layout_width="600px"
         android:layout_height="wrap_content"
+        android:onClick="irAForos"
         android:text="Foros"
-        android:textSize="18dp"/>
+        android:textSize="18dp" />
 
     <Button
         android:layout_width="600px"

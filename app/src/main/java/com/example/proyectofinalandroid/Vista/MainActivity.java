@@ -29,6 +29,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    // Junior url
+    //    final String url = "http://192.168.1.63:1000";
+    // Malejo url
+    final String url = "http://192.168.1.9:1000";
+
 
     EditText correo, contrasena;
     Button registrarse;
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public void ingresar(View view) {
         if (validarCampos()) {
             // aquí inicia el procedimiento para buscar un docente por los datos ingresados
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
             ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
             Call<Docente> docent = serviceDocente.buscarPorCorreo(correo.getText().toString());
             docent.enqueue(new Callback<Docente>() {
@@ -71,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
                             }
                             Intent i = new Intent(getApplicationContext(), ViewDocente.class);
                             i.putExtra("docenteId", doc.getId());
+                            i.putExtra("documento", doc.getDocumento());
                             startActivity(i);
                             return;
                         } else {
                             // en caso de no encontrar docente, hago el mismo procedimiento para buscar
                             // un estudiante
-                            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+                            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
                             ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
                             Call<Estudiante> student = serviceEstudiante.buscarPorCorreo(correo.getText().toString());
                             student.enqueue(new Callback<Estudiante>() {
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                         imprimir(e.getMessage());
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<Estudiante> call, Throwable t) {
                                     Toast.makeText(MainActivity.this, "Falló.", Toast.LENGTH_SHORT).show();
@@ -112,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         imprimir(e.getMessage());
                     }
                 }
+
                 @Override
                 public void onFailure(Call<Docente> call, Throwable t) {
                     Toast.makeText(MainActivity.this, "Falló.", Toast.LENGTH_SHORT).show();

@@ -19,9 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewRegistroDocente extends AppCompatActivity {
 
+    // Junior url
+    //    final String url = "http://192.168.1.63:1000";
+    // Malejo url
+    final String url = "http://192.168.1.9:1000";
+
     EditText documento, nombre, apellido, telefono, correo, contrasena, calendario;
     CtlDocente controlador;
 
@@ -41,10 +44,10 @@ public class ViewRegistroDocente extends AppCompatActivity {
         setContentView(R.layout.activity_view_registro_docente);
 
         controlador = new CtlDocente();
-        documento = (EditText) findViewById(R.id.jtxtDocumento);
-        nombre = (EditText) findViewById(R.id.jtxtNombre);
+        documento = (EditText) findViewById(R.id.txtTitulo);
+        nombre = (EditText) findViewById(R.id.jtxtDescripcion);
         apellido = (EditText) findViewById(R.id.jtxtApellido);
-        telefono = (EditText) findViewById(R.id.jtxtTelefono);
+        telefono = (EditText) findViewById(R.id.jtxtLimite);
         correo = (EditText) findViewById(R.id.jtxtCorreo);
         contrasena = (EditText) findViewById(R.id.jtxtContraseña);
         calendario = (EditText) findViewById(R.id.jtxtFecha);
@@ -63,7 +66,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
             Toast.makeText(this, "Llena todos los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         } else {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
             ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
             Call<Docente> docent = serviceDocente.buscarPorCorreo(correo.getText().toString());
             docent.enqueue(new Callback<Docente>() {
@@ -77,7 +80,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
                         } else {
                             // en caso de no encontrar docente, hago el mismo procedimiento para buscar
                             // un estudiante
-                            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.1.63:1000").addConverterFactory(GsonConverterFactory.create()).build();
+                            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
                             ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
                             Call<Estudiante> student = serviceEstudiante.buscarPorCorreo(correo.getText().toString());
                             student.enqueue(new Callback<Estudiante>() {
@@ -108,6 +111,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
                                         imprimir(e.getMessage());
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<Estudiante> call, Throwable t) {
                                     Toast.makeText(ViewRegistroDocente.this, "Falló.", Toast.LENGTH_SHORT).show();
@@ -119,6 +123,7 @@ public class ViewRegistroDocente extends AppCompatActivity {
                         imprimir(e.getMessage());
                     }
                 }
+
                 @Override
                 public void onFailure(Call<Docente> call, Throwable t) {
                     Toast.makeText(ViewRegistroDocente.this, "Falló.", Toast.LENGTH_SHORT).show();
