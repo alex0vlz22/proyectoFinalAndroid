@@ -68,4 +68,13 @@ public class Foro {
     public void setDocente(Docente docente) {
         this.docente = docente;
     }
+
+    @Override
+    public String toString() {
+        String estado = "inactivo";
+        if(activo){
+            estado = "activo";
+        }
+        return "Título: " + titulo + ", estado: " + estado;
+    }
 }

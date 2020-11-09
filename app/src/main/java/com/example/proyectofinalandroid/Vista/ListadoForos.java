@@ -69,7 +69,7 @@ public class ListadoForos extends AppCompatActivity {
                             lstForos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    Toast.makeText(ListadoForos.this, listaForos.get(i).getTitulo(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ListadoForos.this, listaForos.get(i).getTitulo().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
