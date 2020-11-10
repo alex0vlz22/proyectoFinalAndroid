@@ -96,7 +96,8 @@ public class ViewRegistroForo extends AppCompatActivity {
                 if (estado.isChecked()) {
                     switchActivo = true;
                 }
-                Foro foro = new Foro(titulo.getText().toString(), descripcion.getText().toString(), switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente);
+                Foro foro = new Foro(titulo.getText().toString(), descripcion.getText().toString(),
+                        switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId());
                 if (controladorForo.registrarse(foro, 0)) {
                     Toast.makeText(getApplicationContext(), "¡El foro ha sido registrado!", Toast.LENGTH_SHORT).show();
                     limpiar();

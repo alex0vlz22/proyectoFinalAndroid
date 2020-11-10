@@ -6,19 +6,27 @@ public class Foro {
     private String titulo, descripcion;
     private boolean activo;
     private int limiteParticipaciones;
-    private Docente docente;
-
+    private int idDocente;
 
     public Foro() {
 
     }
 
-    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, Docente docente) {
+    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.activo = activo;
         this.limiteParticipaciones = limiteParticipaciones;
-        this.docente = docente;
+        this.idDocente = idDocente;
+    }
+
+    public Foro(int id, String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.activo = activo;
+        this.limiteParticipaciones = limiteParticipaciones;
+        this.idDocente = idDocente;
     }
 
     public int getId() {
@@ -61,12 +69,12 @@ public class Foro {
         this.limiteParticipaciones = limiteParticipaciones;
     }
 
-    public Docente getDocente() {
-        return docente;
+    public int getIdDocente() {
+        return idDocente;
     }
 
-    public void setDocente(Docente docente) {
-        this.docente = docente;
+    public void setIdDocente(int idDocente) {
+        this.idDocente = idDocente;
     }
 
     @Override
@@ -75,6 +83,6 @@ public class Foro {
         if(activo){
             estado = "activo";
         }
-        return "Título: " + titulo + ", estado: " + estado;
+        return "Titulo: " + titulo + ", estado: " + estado;
     }
 }

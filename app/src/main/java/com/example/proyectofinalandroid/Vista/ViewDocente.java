@@ -7,11 +7,13 @@ import com.example.proyectofinalandroid.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class ViewDocente extends AppCompatActivity {
 
     int idDocente;
     long documento;
+    Button clases;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,12 @@ public class ViewDocente extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+    }
+
+    public void clases(View view) {
+        Intent intentClases = new Intent(this, ViewClases.class);
+        intentClases.putExtra("docenteId", idDocente);
+        startActivity(intentClases);
     }
 
     public void irAForos(View view) {

@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         // Creo un arreglo con dos opciones y las seteo en un alertDialog, esto es para que
         // el usuario elija si es docente o estudiante una vez presionado el botón 'registrarse'
         String[] roles = {"Estudiante", "Docente"};
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Eres docente o estudiante?");
         builder.setItems(roles, new DialogInterface.OnClickListener() {

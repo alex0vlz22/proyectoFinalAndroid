@@ -21,8 +21,9 @@
     <Button
         android:layout_width="600px"
         android:layout_height="wrap_content"
+        android:onClick="clases"
         android:text="Clases"
-        android:textSize="18dp"/>
+        android:textSize="18dp" />
 
     <Button
         android:layout_width="600px"

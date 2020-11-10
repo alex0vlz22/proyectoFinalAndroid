@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Vista.ViewRegistroClase"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gestión de clase"
+        android:textSize="70px"
+        android:textColor="@color/black"
+        android:layout_marginTop="20px"
+        android:layout_marginBottom="50px"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona el grado"
+        android:layout_marginBottom="20px"
+        android:textColor="@color/black"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Número"
+            android:layout_marginLeft="100px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Letra"
+            android:layout_marginLeft="200px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="40px">
+
+        <Spinner
+            android:id="@+id/jSpnNumero"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90px"/>
+
+        <Spinner
+            android:id="@+id/jSpnLetra"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130px"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/jBtnGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="guardar"
+        android:text="Guardar" />
+
+</LinearLayout>
