@@ -19,21 +19,24 @@
         android:layout_marginBottom="20dp"/>
 
     <Button
-        android:id="@+id/jbtnForosDisponibles"
+        android:id="@+id/jbtnUnirme"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:text="Foros disponibles"/>
+        android:text="Unirme a una clase"
+        app:backgroundTint="#4EBF52"
+        android:onClick="UnirmeAUnaClase"/>
 
     <Button
         android:id="@+id/jbtnClases"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:text="Clases"/>
+        android:text="Mis clases"/>
 
     <Button
         android:id="@+id/jbtnEditarPerfil"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:text="Editar perfil"/>
+        android:text="Editar perfil"
+        app:backgroundTint="#D53535" />
 
 </LinearLayout>
