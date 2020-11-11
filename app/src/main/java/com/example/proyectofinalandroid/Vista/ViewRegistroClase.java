@@ -31,7 +31,7 @@ public class ViewRegistroClase extends AppCompatActivity {
     int idDocente;
     Clase claseNueva = new Clase();
     Docente docenteParaClase = new Docente();
-    EditText codigo;
+    EditText codigo, nombre;
     String codigoGenerado;
 
     // Junior url
@@ -51,6 +51,7 @@ public class ViewRegistroClase extends AppCompatActivity {
         numero = (Spinner) findViewById(R.id.jSpnNumero);
         guardar = (Button) findViewById(R.id.jBtnGuardar);
         codigo = (EditText) findViewById(R.id.jtxtCodigo);
+        nombre = (EditText) findViewById(R.id.jtxtNombreClase);
         codigoGenerado = "";
 
         llenarDocenteClase();
@@ -112,7 +113,7 @@ public class ViewRegistroClase extends AppCompatActivity {
 
     public void guardar(View view) {
         if (validarCampos()) {
-            Toast.makeText(this, "Selecciona un grado adecuadamente.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Completa los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         } else {
             Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
             ServiceClase serviceClase = retrofit.create(ServiceClase.class);
@@ -131,6 +132,7 @@ public class ViewRegistroClase extends AppCompatActivity {
                                     letra.getSelectedItem().toString());
                             claseNueva.setIdDocente(docenteParaClase.getId());
                             claseNueva.setCodigo(codigo.getText().toString());
+                            claseNueva.setNombre(nombre.getText().toString());
                             Call<Clase> clase = serviceClase.guardar(claseNueva);
                             clase.enqueue(new Callback<Clase>() {
                                 @Override
@@ -172,6 +174,7 @@ public class ViewRegistroClase extends AppCompatActivity {
         letra.setSelection(0);
         codigo.setText("");
         codigoGenerado = "";
+        nombre.setText("");
         generarCodigo(0);
     }
 
@@ -180,7 +183,8 @@ public class ViewRegistroClase extends AppCompatActivity {
     }
 
     private boolean validarCampos() {
-        if (letra.getSelectedItem().toString().equals("Seleccionar") || numero.getSelectedItem().equals("Seleccionar")) {
+        if (letra.getSelectedItem().toString().equals("Seleccionar") || numero.getSelectedItem().equals("Seleccionar")
+        || nombre.getText().toString().equals("")) {
             return true;
         }
         return false;
