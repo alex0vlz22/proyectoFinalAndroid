@@ -7,6 +7,7 @@ public class Foro {
     private boolean activo;
     private int limiteParticipaciones;
     private int idDocente;
+    private String grado;
 
     public Foro() {
 
@@ -27,6 +28,15 @@ public class Foro {
         this.activo = activo;
         this.limiteParticipaciones = limiteParticipaciones;
         this.idDocente = idDocente;
+    }
+
+    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente, String grado) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.activo = activo;
+        this.limiteParticipaciones = limiteParticipaciones;
+        this.idDocente = idDocente;
+        this.grado = grado;
     }
 
     public int getId() {
@@ -75,6 +85,14 @@ public class Foro {
 
     public void setIdDocente(int idDocente) {
         this.idDocente = idDocente;
+    }
+
+    public String getGrado() {
+        return grado;
+    }
+
+    public void setGrado(String grado) {
+        this.grado = grado;
     }
 
     @Override

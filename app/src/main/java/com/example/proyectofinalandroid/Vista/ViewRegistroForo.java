@@ -5,21 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proyectofinalandroid.Controlador.CtlForo;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
+import com.example.proyectofinalandroid.Modelo.Clase;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.R;
+import com.example.proyectofinalandroid.Util.ServiceClase;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
 import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceForo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,21 +41,24 @@ public class ViewRegistroForo extends AppCompatActivity {
     TextView titulo, descripcion, limiteParticipacion;
     Switch estado;
     CtlForo controladorForo;
-
-    // Junior url
-       final String url = "http://192.168.1.92:1000";
-    // Malejo url
-    //final String url = "http://192.168.1.9:1000";
-
-    
-
+    Spinner grado;
+    List<Clase> listaClases = new ArrayList<Clase>();
+    int idDocente;
+    List<String> grados = new ArrayList<>();
     Docente docente = new Docente();
     long documento;
+
+    // Junior url
+    final String url = "http://192.168.1.92:1000";
+    // Malejo url
+    //final String url = "http://192.168.1.9:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_registro_foro);
+
+        grado = (Spinner) findViewById(R.id.jspnGrado);
         titulo = (TextView) findViewById(R.id.campoTitulo);
         descripcion = (TextView) findViewById(R.id.jtxtDescripcion);
         limiteParticipacion = (TextView) findViewById(R.id.jtxtLimite);
@@ -55,10 +66,15 @@ public class ViewRegistroForo extends AppCompatActivity {
         controladorForo = new CtlForo();
         boton = (Button) findViewById(R.id.jbtnRegistrarme);
         boton.setOnClickListener(this::registrarForo);
+
         getSupportActionBar().hide();
+
         Bundle b = getIntent().getExtras();
-        int idDocente = b.getInt("docenteId");
+        idDocente = b.getInt("docenteId");
         documento = b.getLong("documento");
+
+        llenarSpinnerGrados();
+
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
         Call<Docente> docent = serviceDocente.buscar(documento);
@@ -68,7 +84,6 @@ public class ViewRegistroForo extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         docente = response.body();
-
                         return;
                     }
                     Toast.makeText(ViewRegistroForo.this, "El docente no existe -_-", Toast.LENGTH_SHORT).show();
@@ -82,6 +97,53 @@ public class ViewRegistroForo extends AppCompatActivity {
                 Toast.makeText(ViewRegistroForo.this, "Falló.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void llenarSpinnerGrados() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        ServiceClase serviceClase = retrofit.create(ServiceClase.class);
+        Call<List<Clase>> clases = serviceClase.buscarPorDocente(idDocente);
+        clases.enqueue(new Callback<List<Clase>>() {
+            @Override
+            public void onResponse(Call<List<Clase>> call, Response<List<Clase>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        listaClases = response.body();
+                        llenarSpinner(listaClases, 0);
+                        return;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Clase>> call, Throwable t) {
+                Toast.makeText(ViewRegistroForo.this, "Falló.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void llenarSpinner(List<Clase> listaClases, int x) {
+        if (listaClases.size() == x) {
+            if (x == 0) {
+                grados.add("Seleccionar");
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grados);
+                grado.setAdapter(adapter);
+                return;
+            } else {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, grados);
+                grado.setAdapter(adapter);
+                return;
+            }
+        } else if (x == 0) {
+            grados.add("Seleccionar");
+            grados.add(listaClases.get(x).getGrado());
+            llenarSpinner(listaClases, x + 1);
+        } else {
+            grados.add(listaClases.get(x).getGrado());
+            llenarSpinner(listaClases, x + 1);
+        }
     }
 
     public void registrarForo(View view) {
@@ -98,6 +160,7 @@ public class ViewRegistroForo extends AppCompatActivity {
                 }
                 Foro foro = new Foro(titulo.getText().toString(), descripcion.getText().toString(),
                         switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId());
+                foro.setGrado(grado.getSelectedItem().toString());
                 if (controladorForo.registrarse(foro, 0)) {
                     Toast.makeText(getApplicationContext(), "¡El foro ha sido registrado!", Toast.LENGTH_SHORT).show();
                     limpiar();
@@ -120,7 +183,7 @@ public class ViewRegistroForo extends AppCompatActivity {
 
     private boolean validarCampos() {
         if (titulo.getText().toString().equals("") || descripcion.getText().toString().equals("") ||
-                limiteParticipacion.getText().toString().equals("")) {
+                limiteParticipacion.getText().toString().equals("") || grado.getSelectedItem().toString().equals("Seleccionar")) {
             return true;
         } else {
             return false;
