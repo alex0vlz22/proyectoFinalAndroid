@@ -33,4 +33,7 @@ public interface ServiceClase {
     @GET("/buscarClasePorDocente/{docenteId}")
     public Call<Clase> buscarPorDocente(@Path("docenteId") int docenteId);
 
+    @GET("/buscarPorCodigo/{codigo}")
+    public Call<Clase> buscarPorCodigo(@Path("codigo") String codigo);
+
 }

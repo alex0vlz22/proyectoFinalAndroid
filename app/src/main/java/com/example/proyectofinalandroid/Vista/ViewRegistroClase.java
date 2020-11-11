@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +31,8 @@ public class ViewRegistroClase extends AppCompatActivity {
     int idDocente;
     Clase claseNueva = new Clase();
     Docente docenteParaClase = new Docente();
+    EditText codigo;
+    String codigoGenerado;
 
     // Junior url
     final String url = "http://192.168.1.92:1000";
@@ -45,10 +50,25 @@ public class ViewRegistroClase extends AppCompatActivity {
         letra = (Spinner) findViewById(R.id.jSpnLetra);
         numero = (Spinner) findViewById(R.id.jSpnNumero);
         guardar = (Button) findViewById(R.id.jBtnGuardar);
+        codigo = (EditText) findViewById(R.id.jtxtCodigo);
+        codigoGenerado = "";
 
         llenarDocenteClase();
         iniciarSpinners();
+        generarCodigo(0);
         getSupportActionBar().hide();
+    }
+
+    private void generarCodigo(int x) {
+        if (x == 3) {
+            codigo.setText(codigoGenerado);
+            return;
+        } else {
+            Random rnd = new Random();
+            codigoGenerado += (char) ('a' + rnd.nextInt(26));
+            codigoGenerado += 0 + rnd.nextInt(10);
+            generarCodigo(x + 1);
+        }
     }
 
     private void llenarDocenteClase() {
@@ -110,6 +130,7 @@ public class ViewRegistroClase extends AppCompatActivity {
                             claseNueva.setGrado(numero.getSelectedItem().toString() +
                                     letra.getSelectedItem().toString());
                             claseNueva.setIdDocente(docenteParaClase.getId());
+                            claseNueva.setCodigo(codigo.getText().toString());
                             Call<Clase> clase = serviceClase.guardar(claseNueva);
                             clase.enqueue(new Callback<Clase>() {
                                 @Override
@@ -149,6 +170,9 @@ public class ViewRegistroClase extends AppCompatActivity {
     private void limpiarCampos() {
         numero.setSelection(0);
         letra.setSelection(0);
+        codigo.setText("");
+        codigoGenerado = "";
+        generarCodigo(0);
     }
 
     private void imprimir(String s) {

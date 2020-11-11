@@ -66,6 +66,22 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Código de clase (autogenerado)"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/jtxtCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="No se generó un código"
+        android:editable="false"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20px"
+        android:gravity="center_horizontal"/>
+
     <Button
         android:id="@+id/jBtnGuardar"
         android:layout_width="wrap_content"
