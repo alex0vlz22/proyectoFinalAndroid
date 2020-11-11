@@ -35,6 +35,7 @@
         android:id="@+id/jbtnListado"
         android:layout_width="500px"
         android:layout_height="wrap_content"
-        android:text="Listado"/>
+        android:text="Listado"
+        android:onClick="listado"/>
 
 </LinearLayout>

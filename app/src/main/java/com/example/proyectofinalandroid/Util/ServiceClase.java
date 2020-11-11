@@ -30,8 +30,8 @@ public interface ServiceClase {
     @GET("/clases")
     public Call<List<Clase>> listar();
 
-    @GET("/buscarClasePorDocente/{docenteId}")
-    public Call<Clase> buscarPorDocente(@Path("docenteId") int docenteId);
+    @GET("/listarPorDocente/{idDocente}")
+    public Call<List<Clase>> buscarPorDocente(@Path("idDocente") int idDocente);
 
     @GET("/buscarPorCodigo/{codigo}")
     public Call<Clase> buscarPorCodigo(@Path("codigo") String codigo);

@@ -41,4 +41,10 @@ public class ViewClases extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void listado(View v){
+        Intent i = new Intent(this, ListadoClases.class);
+        i.putExtra("idDocente", idDocente);
+        startActivity(i);
+    }
+
 }
