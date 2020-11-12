@@ -29,7 +29,8 @@
         android:id="@+id/jbtnSolicitudes"
         android:layout_width="500px"
         android:layout_height="wrap_content"
-        android:text="Solicitudes"/>
+        android:text="Solicitudes"
+        android:onClick="solicitudes"/>
 
     <Button
         android:id="@+id/jbtnListado"

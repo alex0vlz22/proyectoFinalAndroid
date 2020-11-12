@@ -31,6 +31,7 @@ public class ViewDocente extends AppCompatActivity {
     public void clases(View view) {
         Intent intentClases = new Intent(this, ViewClases.class);
         intentClases.putExtra("docenteId", idDocente);
+        intentClases.putExtra("documento", documento);
         startActivity(intentClases);
     }
 
@@ -45,6 +46,12 @@ public class ViewDocente extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), ListadoForos.class);
         intent.putExtra("docenteId", idDocente);
         intent.putExtra("documento", documento);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

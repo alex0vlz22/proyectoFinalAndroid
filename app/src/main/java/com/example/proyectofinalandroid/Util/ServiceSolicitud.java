@@ -2,6 +2,8 @@ package com.example.proyectofinalandroid.Util;
 
 import com.example.proyectofinalandroid.Modelo.Solicitud;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -17,6 +19,6 @@ public interface ServiceSolicitud {
     public Call<Solicitud> buscarPorIdEstudiante(@Path("idEstudiante") int idEstudiante);
 
     @GET("/buscarSolicitudPorIdDocente/{idDocente}")
-    public Call<Solicitud> buscarPorIdDocente(@Path("idDocente") int idDocente);
+    public Call<List<Solicitud>> buscarPorIdDocente(@Path("idDocente") int idDocente);
 
 }

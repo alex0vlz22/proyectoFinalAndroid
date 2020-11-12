@@ -18,6 +18,7 @@ public class ViewClases extends AppCompatActivity {
 
     Button gestionar, listado, solicitudes;
     int idDocente;
+    long documento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class ViewClases extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         idDocente = b.getInt("docenteId");
+        documento = b.getLong("documento");
 
         getSupportActionBar().hide();
 
@@ -47,4 +49,17 @@ public class ViewClases extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void solicitudes(View v){
+        Intent i = new Intent(this, ViewSolicitudes.class);
+        i.putExtra("idDocente", idDocente);
+        startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, ViewDocente.class);
+        i.putExtra("idDocente", idDocente);
+        i.putExtra("documento", documento);
+        startActivity(i);
+    }
 }

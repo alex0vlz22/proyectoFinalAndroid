@@ -78,7 +78,7 @@ public class ViewEstudiante extends AppCompatActivity {
                                         return;
                                     } else {
                                         try {
-                                            validarSolicitud(codigo.getText().toString(), c.getIdDocente());
+                                            validarSolicitud(codigo.getText().toString(), c.getIdDocente(), c.getNombre());
                                             codigo.setText("");
                                             return;
                                         }catch(Exception e){
@@ -109,7 +109,7 @@ public class ViewEstudiante extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void validarSolicitud(String codigo, int idDocente) {
+    private void validarSolicitud(String codigo, int idDocente, String nombreClase) {
         // Se valida si ya hay una solicitud de dicho estudiante hacia la misma clase.
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceSolicitud serviceSolicitud = retrofit.create(ServiceSolicitud.class);
@@ -124,11 +124,11 @@ public class ViewEstudiante extends AppCompatActivity {
                             imprimir("Ya has solicitado unirte a esta clase.");
                             return;
                         } else {
-                            generarNuevaSolicitud(codigo, idDocente);
+                            generarNuevaSolicitud(codigo, idDocente, nombreClase);
                             return;
                         }
                     } else {
-                        generarNuevaSolicitud(codigo, idDocente);
+                        generarNuevaSolicitud(codigo, idDocente, nombreClase);
                         return;
                     }
                 } catch (Exception e) {
@@ -148,13 +148,14 @@ public class ViewEstudiante extends AppCompatActivity {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void generarNuevaSolicitud(String codigo, int idDocente) {
+    private void generarNuevaSolicitud(String codigo, int idDocente, String nombreClase) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceSolicitud serviceSolicitud = retrofit.create(ServiceSolicitud.class);
 
         nuevaSolicitud.setCodigo(codigo);
         nuevaSolicitud.setIdEstudiante(idEstudiante);
         nuevaSolicitud.setIdDocente(idDocente);
+        nuevaSolicitud.setNombreClase(nombreClase);
 
         Call<Solicitud> solicitud = serviceSolicitud.guardarSolicitud(nuevaSolicitud);
         solicitud.enqueue(new Callback<Solicitud>() {
