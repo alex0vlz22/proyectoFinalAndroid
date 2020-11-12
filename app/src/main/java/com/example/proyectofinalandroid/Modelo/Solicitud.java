@@ -2,7 +2,7 @@ package com.example.proyectofinalandroid.Modelo;
 
 public class Solicitud {
 
-    private int id, idEstudiante, idClase;
+    private int id, idEstudiante, idDocente;
     private String codigo;
 
     public Solicitud() {
@@ -32,11 +32,11 @@ public class Solicitud {
         this.idEstudiante = idEstudiante;
     }
 
-    public int getIdClase() {
-        return idClase;
+    public int getIdDocente() {
+        return idDocente;
     }
 
-    public void setIdClase(int idClase) {
-        this.idClase = idClase;
+    public void setIdDocente(int idDocente) {
+        this.idDocente = idDocente;
     }
 }

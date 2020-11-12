@@ -16,7 +16,7 @@ public interface ServiceSolicitud {
     @GET("/buscarSolicitudPorIdEstudiante/{idEstudiante}")
     public Call<Solicitud> buscarPorIdEstudiante(@Path("idEstudiante") int idEstudiante);
 
-    @GET("/buscarSolicitudPorIdClase/{idClase}")
-    public Call<Solicitud> buscarPorIdClase(@Path("idClase") int idClase);
+    @GET("/buscarSolicitudPorIdDocente/{idDocente}")
+    public Call<Solicitud> buscarPorIdDocente(@Path("idDocente") int idDocente);
 
 }
