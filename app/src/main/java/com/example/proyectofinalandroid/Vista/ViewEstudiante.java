@@ -190,6 +190,7 @@ public class ViewEstudiante extends AppCompatActivity {
         nuevaSolicitud.setGradoClase(c.getGrado());
         nuevaSolicitud.setNombreEstudiante(estudianteIngresado.getNombre() + " " + estudianteIngresado.getApellido());
         nuevaSolicitud.setGradoEstudiante(estudianteIngresado.getGrado());
+        nuevaSolicitud.setIdClase(c.getId());
 
         Call<Solicitud> solicitud = serviceSolicitud.guardarSolicitud(nuevaSolicitud);
         solicitud.enqueue(new Callback<Solicitud>() {
