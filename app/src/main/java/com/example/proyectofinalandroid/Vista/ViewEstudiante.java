@@ -11,6 +11,7 @@ import com.example.proyectofinalandroid.Modelo.Solicitud;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceClase;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceSolicitud;
 
 import android.content.Intent;
@@ -30,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ViewEstudiante extends AppCompatActivity {
 
     int idEstudiante;
+    Estudiante estudianteIngresado = new Estudiante();
     Solicitud nuevaSolicitud = new Solicitud();
 
     // Junior url
@@ -45,8 +47,37 @@ public class ViewEstudiante extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         idEstudiante = b.getInt("estudianteId");
 
+        llenarEstudianteIngresado();
         getSupportActionBar().hide();
 
+    }
+
+    private void llenarEstudianteIngresado() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
+        Call<Estudiante> estudiante = serviceEstudiante.buscarPorId(idEstudiante);
+        estudiante.enqueue(new Callback<Estudiante>() {
+            @Override
+            public void onResponse(Call<Estudiante> call, Response<Estudiante> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        estudianteIngresado = response.body();
+                        return;
+                    } else {
+                        imprimir("Error buscándote como estudiante en la base de datos.");
+                        return;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    imprimir(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Estudiante> call, Throwable t) {
+                Toast.makeText(ViewEstudiante.this, "Falló.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void UnirmeAUnaClase(View v) {
@@ -78,7 +109,7 @@ public class ViewEstudiante extends AppCompatActivity {
                                         return;
                                     } else {
                                         try {
-                                            validarSolicitud(codigo.getText().toString(), c.getIdDocente(), c.getNombre());
+                                            validarSolicitud(codigo.getText().toString(), c.getIdDocente(), c);
                                             codigo.setText("");
                                             return;
                                         }catch(Exception e){
@@ -109,7 +140,7 @@ public class ViewEstudiante extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void validarSolicitud(String codigo, int idDocente, String nombreClase) {
+    private void validarSolicitud(String codigo, int idDocente, Clase c) {
         // Se valida si ya hay una solicitud de dicho estudiante hacia la misma clase.
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceSolicitud serviceSolicitud = retrofit.create(ServiceSolicitud.class);
@@ -124,11 +155,11 @@ public class ViewEstudiante extends AppCompatActivity {
                             imprimir("Ya has solicitado unirte a esta clase.");
                             return;
                         } else {
-                            generarNuevaSolicitud(codigo, idDocente, nombreClase);
+                            generarNuevaSolicitud(codigo, idDocente, c);
                             return;
                         }
                     } else {
-                        generarNuevaSolicitud(codigo, idDocente, nombreClase);
+                        generarNuevaSolicitud(codigo, idDocente, c);
                         return;
                     }
                 } catch (Exception e) {
@@ -148,14 +179,17 @@ public class ViewEstudiante extends AppCompatActivity {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void generarNuevaSolicitud(String codigo, int idDocente, String nombreClase) {
+    private void generarNuevaSolicitud(String codigo, int idDocente, Clase c) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceSolicitud serviceSolicitud = retrofit.create(ServiceSolicitud.class);
 
         nuevaSolicitud.setCodigo(codigo);
         nuevaSolicitud.setIdEstudiante(idEstudiante);
         nuevaSolicitud.setIdDocente(idDocente);
-        nuevaSolicitud.setNombreClase(nombreClase);
+        nuevaSolicitud.setNombreClase(c.getNombre());
+        nuevaSolicitud.setGradoClase(c.getGrado());
+        nuevaSolicitud.setNombreEstudiante(estudianteIngresado.getNombre() + " " + estudianteIngresado.getApellido());
+        nuevaSolicitud.setGradoEstudiante(estudianteIngresado.getGrado());
 
         Call<Solicitud> solicitud = serviceSolicitud.guardarSolicitud(nuevaSolicitud);
         solicitud.enqueue(new Callback<Solicitud>() {

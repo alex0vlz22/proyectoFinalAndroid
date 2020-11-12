@@ -2,8 +2,8 @@ package com.example.proyectofinalandroid.Modelo;
 
 public class EstudianteClase {
 
-    private int id, idEstudiante, idClase;
-    private String codigoClase;
+    private int id, idClase, idEstudiante;
+    private String nombreClase;
 
     public EstudianteClase() {
     }
@@ -16,14 +16,6 @@ public class EstudianteClase {
         this.id = id;
     }
 
-    public int getIdEstudiante() {
-        return idEstudiante;
-    }
-
-    public void setIdEstudiante(int idEstudiante) {
-        this.idEstudiante = idEstudiante;
-    }
-
     public int getIdClase() {
         return idClase;
     }
@@ -32,11 +24,19 @@ public class EstudianteClase {
         this.idClase = idClase;
     }
 
-    public String getCodigoClase() {
-        return codigoClase;
+    public int getIdEstudiante() {
+        return idEstudiante;
     }
 
-    public void setCodigoClase(String codigoClase) {
-        this.codigoClase = codigoClase;
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public String getNombreClase() {
+        return nombreClase;
+    }
+
+    public void setNombreClase(String nombreClase) {
+        this.nombreClase = nombreClase;
     }
 }

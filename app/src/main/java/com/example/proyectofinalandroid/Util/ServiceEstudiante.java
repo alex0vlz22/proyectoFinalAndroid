@@ -20,6 +20,9 @@ public interface ServiceEstudiante {
     @GET("/buscarEstudiante/{documento}")
     public Call<Estudiante> buscar(@Path("documento") long documento);
 
+    @GET("/buscarEstudianteId/{id}")
+    public Call<Estudiante> buscarPorId(@Path("id") int id);
+
     @PUT("/modificarEstudiante")
     public Call<Estudiante> modificar(@Body Estudiante estudiante);
 

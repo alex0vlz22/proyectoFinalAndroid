@@ -1,6 +1,5 @@
 package com.example.proyectofinalandroid.Vista;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.proyectofinalandroid.Modelo.Clase;
-import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.Modelo.Solicitud;
 import com.example.proyectofinalandroid.R;
-import com.example.proyectofinalandroid.Util.ServiceClase;
 import com.example.proyectofinalandroid.Util.ServiceSolicitud;
 
 import java.util.ArrayList;

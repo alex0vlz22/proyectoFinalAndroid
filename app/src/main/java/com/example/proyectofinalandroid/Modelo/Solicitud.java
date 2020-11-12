@@ -3,7 +3,7 @@ package com.example.proyectofinalandroid.Modelo;
 public class Solicitud {
 
     private int id, idEstudiante, idDocente;
-    private String nombreClase, codigo;
+    private String nombreClase, codigo, nombreEstudiante, gradoEstudiante, gradoClase;
 
     public Solicitud() {
     }
@@ -22,6 +22,30 @@ public class Solicitud {
 
     public void setNombreClase(String nombreClase) {
         this.nombreClase = nombreClase;
+    }
+
+    public String getNombreEstudiante() {
+        return nombreEstudiante;
+    }
+
+    public void setNombreEstudiante(String nombreEstudiante) {
+        this.nombreEstudiante = nombreEstudiante;
+    }
+
+    public String getGradoEstudiante() {
+        return gradoEstudiante;
+    }
+
+    public void setGradoEstudiante(String gradoEstudiante) {
+        this.gradoEstudiante = gradoEstudiante;
+    }
+
+    public String getGradoClase() {
+        return gradoClase;
+    }
+
+    public void setGradoClase(String gradoClase) {
+        this.gradoClase = gradoClase;
     }
 
     public String getCodigo() {
@@ -50,6 +74,6 @@ public class Solicitud {
 
     @Override
     public String toString() {
-        return "Clase: " + nombreClase;
+        return "Clase: " + nombreClase + ", Grado: " + gradoClase;
     }
 }
