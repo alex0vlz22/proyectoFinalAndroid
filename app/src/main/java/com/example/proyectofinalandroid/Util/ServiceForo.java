@@ -29,4 +29,7 @@ public interface ServiceForo {
 
     @GET("/listarForos")
     public Call<List<Foro>> listarForos();
+
+
+
 }
