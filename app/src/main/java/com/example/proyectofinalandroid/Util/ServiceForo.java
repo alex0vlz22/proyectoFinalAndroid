@@ -22,6 +22,9 @@ public interface ServiceForo {
     @GET("/listarForosDocente/{docenteId}")
     public Call<List<Foro>> listarForosPorDocente(@Path("docenteId") int docenteId);
 
+    @GET("/listarForosPorClase/{idClase}")
+    public Call<List<Foro>> listarForosPorClase(@Path("idClase") int idClase);
+
     @DELETE("/eliminarForo/{id}")
     public Call<Foro> eliminar(@Path("id") int id);
 

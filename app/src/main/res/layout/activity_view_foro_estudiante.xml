@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="1900px"
-    tools:context=".Vista.ViewForoDocente">
+    android:layout_height="match_parent"
+    tools:context=".Vista.viewForoEstudiante">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,72 +12,59 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lbl2"
+            android:id="@+id/lblTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ya han participado"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/txtCompletados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
-        <TextView
-            android:id="@+id/lbl3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Faltan por participar"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/txtSinCompletar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="224dp" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
-        <TextView
-            android:id="@+id/lbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Participaciones"
             android:textColor="#000000"
             android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="34dp" />
+            android:layout_height="40dp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/lblDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:textColor="#000000"
+            android:textSize="18sp" />
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="244dp" />
-        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/lblNombreDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/lbla"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Todos los comentarios"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <ListView
+            android:id="@+id/lstViewParticipaciones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

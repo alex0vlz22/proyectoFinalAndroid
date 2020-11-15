@@ -67,7 +67,10 @@ public class ViewListadoClasesEstudiante extends AppCompatActivity {
                             listaView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                                    Toast.makeText(ViewListadoClasesEstudiante.this, lista.get(i).getNombreClase(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), ViewClaseEstudiante.class);
+                                    intent.putExtra("idClase", lista.get(i).getId());
+                                    intent.putExtra("idEstudiante", idEstudiante);
+                                    startActivity(intent);
                                 }
                             });
                         } else {

@@ -143,7 +143,13 @@ public class ViewRegistroForo extends AppCompatActivity {
     }
 
     public void registrarForo(View view) {
-        if (validarCampos()) {
+        int idClase = -100;
+        for (int i = 0; i < listaClases.size(); i++) {
+            if (listaClases.get(i).getGrado().equals(grado.getSelectedItem().toString())) {
+                idClase = listaClases.get(i).getId();
+            }
+        }
+        if (validarCampos() || idClase == -100) {
             Toast.makeText(this, "Llena todos los campos adecuadamente.", Toast.LENGTH_SHORT).show();
         } else {
 
@@ -154,8 +160,9 @@ public class ViewRegistroForo extends AppCompatActivity {
                 if (estado.isChecked()) {
                     switchActivo = true;
                 }
+
                 Foro foro = new Foro(titulo.getText().toString(), descripcion.getText().toString(),
-                        switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId(),grado.getSelectedItem().toString());
+                        switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId(), idClase);
 
                 if (controladorForo.registrarse(foro, 0)) {
                     Toast.makeText(getApplicationContext(), "¡El foro ha sido registrado!", Toast.LENGTH_SHORT).show();

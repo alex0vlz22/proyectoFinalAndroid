@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoFinalAndroid">
-        <activity android:name=".Vista.ViewForoDocente"></activity>
+        <activity android:name=".Vista.viewForoEstudiante"></activity>
+        <activity android:name=".Vista.ViewClaseEstudiante" />
+        <activity android:name=".Vista.ViewForoDocente" />
         <activity android:name=".Vista.ViewListadoClasesEstudiante" />
         <activity android:name=".Vista.ViewSolicitudes" />
         <activity android:name=".Vista.ListadoClases" />

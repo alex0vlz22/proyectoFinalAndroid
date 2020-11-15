@@ -7,15 +7,19 @@ public class Foro {
     private boolean activo;
     private int limiteParticipaciones;
     private int idDocente;
-    private String grado;
+    private int idClase;
 
-    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente, String grado) {
+    public Foro() {
+
+    }
+
+    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente, int idClase) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.activo = activo;
         this.limiteParticipaciones = limiteParticipaciones;
         this.idDocente = idDocente;
-        this.grado = grado;
+        this.idClase = idClase;
     }
 
     public int getId() {
@@ -66,12 +70,12 @@ public class Foro {
         this.idDocente = idDocente;
     }
 
-    public String getGrado() {
-        return grado;
+    public int getIdClase() {
+        return idClase;
     }
 
-    public void setGrado(String grado) {
-        this.grado = grado;
+    public void setIdClase(int idClase) {
+        this.idClase = idClase;
     }
 
     @Override
@@ -81,7 +85,7 @@ public class Foro {
                 ", activo= " + activo +
                 ", limite de participaciones= " + limiteParticipaciones +
                 ", idDocente=" + idDocente +
-                ", grado='" + grado + '\'' +
+                ", idClase='" + idClase + '\'' +
                 '}';
     }
 }
