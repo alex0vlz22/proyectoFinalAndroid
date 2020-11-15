@@ -1,9 +1,7 @@
 package com.example.proyectofinalandroid.Controlador;
 
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
-import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
-import com.example.proyectofinalandroid.Util.ServiceDocente;
 import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 
 import retrofit2.Call;

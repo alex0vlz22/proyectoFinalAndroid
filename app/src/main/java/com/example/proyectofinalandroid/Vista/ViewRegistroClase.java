@@ -8,6 +8,7 @@ import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceClase;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ public class ViewRegistroClase extends AppCompatActivity {
     Docente docenteParaClase = new Docente();
     EditText codigo, nombre;
     String codigoGenerado;
+    long documento;
 
     // Junior url
     final String url = "http://192.168.1.92:1000";
@@ -46,6 +48,7 @@ public class ViewRegistroClase extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         idDocente = b.getInt("idDocente");
+        documento = b.getLong("documento");
 
         letra = (Spinner) findViewById(R.id.jSpnLetra);
         numero = (Spinner) findViewById(R.id.jSpnNumero);
@@ -184,10 +187,17 @@ public class ViewRegistroClase extends AppCompatActivity {
 
     private boolean validarCampos() {
         if (letra.getSelectedItem().toString().equals("Seleccionar") || numero.getSelectedItem().equals("Seleccionar")
-        || nombre.getText().toString().equals("")) {
+                || nombre.getText().toString().equals("")) {
             return true;
         }
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewClases.class);
+        intent.putExtra("docenteId", idDocente);
+        intent.putExtra("documento", documento);
+        startActivity(intent);
+    }
 }

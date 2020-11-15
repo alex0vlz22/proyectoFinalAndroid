@@ -98,7 +98,7 @@ public class Foro {
     @Override
     public String toString() {
         String estado = "inactivo";
-        if(activo){
+        if (activo) {
             estado = "activo";
         }
         return "Titulo: " + titulo + ", estado: " + estado;

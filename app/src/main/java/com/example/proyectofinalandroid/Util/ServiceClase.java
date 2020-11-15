@@ -1,7 +1,6 @@
 package com.example.proyectofinalandroid.Util;
 
 import com.example.proyectofinalandroid.Modelo.Clase;
-import com.example.proyectofinalandroid.Modelo.Docente;
 
 import java.util.List;
 

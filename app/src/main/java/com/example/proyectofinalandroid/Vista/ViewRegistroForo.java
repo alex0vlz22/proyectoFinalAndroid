@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,12 +16,10 @@ import com.example.proyectofinalandroid.Controlador.CtlForo;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Clase;
 import com.example.proyectofinalandroid.Modelo.Docente;
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceClase;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
-import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceForo;
 
 import java.util.ArrayList;
@@ -86,7 +82,7 @@ public class ViewRegistroForo extends AppCompatActivity {
                         docente = response.body();
                         return;
                     }
-                    Toast.makeText(ViewRegistroForo.this, "El docente no existe -_-", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewRegistroForo.this, "Error buscando el docente.", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,5 +186,11 @@ public class ViewRegistroForo extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewDocente.class);
+        intent.putExtra("docenteId", idDocente);
+        intent.putExtra("documento", documento);
+        startActivity(intent);
+    }
 }

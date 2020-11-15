@@ -5,18 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.EstudianteClase;
-import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceEstudianteClase;
-import com.example.proyectofinalandroid.Util.ServiceForo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +60,7 @@ public class ViewListadoClasesEstudiante extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         lista = response.body();
-                        if(lista.size()!=0){
+                        if (lista.size() != 0) {
                             ArrayAdapter<EstudianteClase> adapter = new ArrayAdapter<EstudianteClase>(ViewListadoClasesEstudiante.this,
                                     android.R.layout.simple_list_item_1, lista);
                             listaView.setAdapter(adapter);
@@ -74,7 +70,7 @@ public class ViewListadoClasesEstudiante extends AppCompatActivity {
                                     Toast.makeText(ViewListadoClasesEstudiante.this, lista.get(i).getNombreClase(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }else{
+                        } else {
                             String[] semilista = {"No perteneces a una clase aún."};
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(ViewListadoClasesEstudiante.this,
                                     android.R.layout.simple_list_item_1, semilista);

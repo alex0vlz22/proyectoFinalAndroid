@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.EstudianteClase;
 import com.example.proyectofinalandroid.Modelo.Solicitud;
 import com.example.proyectofinalandroid.R;
@@ -34,6 +33,7 @@ public class ViewSolicitudes extends AppCompatActivity {
     List<Solicitud> listaSolicitudes = new ArrayList<Solicitud>();
     EstudianteClase estudianteClase = new EstudianteClase();
     ListView lista;
+    long documento;
 
     // Junior url
     final String url = "http://192.168.1.92:1000";
@@ -49,6 +49,7 @@ public class ViewSolicitudes extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         idDocente = bundle.getInt("idDocente");
+        documento = bundle.getLong("documento");
 
         getSupportActionBar().hide();
         llenarLista();
@@ -164,13 +165,13 @@ public class ViewSolicitudes extends AppCompatActivity {
                         if (solicitud == null) {
                             imprimir("Algo salió mal al rechazar el estudiante.");
                         } else {
-                            if(aux == 0){
+                            if (aux == 0) {
                                 imprimir("La solicitud fue rechazada.");
                             }
                             llenarLista();
                         }
                         return;
-                    }else{
+                    } else {
                         imprimir("NO SE ENCONTRÓ TAL SOLICITUD.");
                         return;
                     }
@@ -192,7 +193,7 @@ public class ViewSolicitudes extends AppCompatActivity {
         estudianteClase.setNombreClase(listaSolicitudes.get(i).getNombreClase());
     }
 
-    public void imprimir(String msg){
+    public void imprimir(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -200,6 +201,7 @@ public class ViewSolicitudes extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, ViewClases.class);
         intent.putExtra("docenteId", idDocente);
+        intent.putExtra("documento", documento);
         startActivity(intent);
     }
 }

@@ -1,7 +1,5 @@
 package com.example.proyectofinalandroid.Modelo;
 
-import java.util.Date;
-
 public class Docente {
     private int id;
     private long documento;

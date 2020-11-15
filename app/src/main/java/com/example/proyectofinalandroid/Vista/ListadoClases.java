@@ -2,6 +2,7 @@ package com.example.proyectofinalandroid.Vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ public class ListadoClases extends AppCompatActivity {
     int idDocente;
     ListView lista;
     List listaClases;
+    long documento;
 
     // Junior url
     final String url = "http://192.168.1.92:1000";
@@ -42,6 +44,7 @@ public class ListadoClases extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         idDocente = b.getInt("idDocente");
+        documento = b.getLong("documento");
 
         llenarLista();
         getSupportActionBar().hide();
@@ -87,5 +90,13 @@ public class ListadoClases extends AppCompatActivity {
                 Toast.makeText(ListadoClases.this, "Falló.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, ViewClases.class);
+        i.putExtra("docenteId", idDocente);
+        i.putExtra("documento", documento);
+        startActivity(i);
     }
 }

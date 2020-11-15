@@ -1,9 +1,7 @@
 package com.example.proyectofinalandroid.Controlador;
 
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
-import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceForo;
 
 import retrofit2.Call;
@@ -14,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CtlForo {
     // Junior url
-        final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
     // final String url = "http://192.168.1.9:1000";
 

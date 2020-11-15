@@ -11,12 +11,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.proyectofinalandroid.Controlador.CtlForo;
-import com.example.proyectofinalandroid.Modelo.Docente;
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.R;
-import com.example.proyectofinalandroid.Util.ServiceDocente;
-import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceForo;
 
 import java.util.List;
@@ -32,7 +28,7 @@ public class ListadoForos extends AppCompatActivity {
     CtlForo controladorForo;
     int idDocente;
     // Junior url
-       final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
     // final String url = "http://192.168.1.9:1000";
     long documento;
@@ -90,7 +86,13 @@ public class ListadoForos extends AppCompatActivity {
                 Toast.makeText(ListadoForos.this, "Falló.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewDocente.class);
+        intent.putExtra("docenteId", idDocente);
+        intent.putExtra("documento", documento);
+        startActivity(intent);
     }
 }

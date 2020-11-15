@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.example.proyectofinalandroid.Controlador.CtlDocente;
 import com.example.proyectofinalandroid.Controlador.CtlEstudiante;
-import com.example.proyectofinalandroid.Exception.ContrasenaIncorrectaExcepcion;
-import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.R;
@@ -30,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     // Junior url
-        final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
     //final String url = "http://192.168.1.9:1000";
 

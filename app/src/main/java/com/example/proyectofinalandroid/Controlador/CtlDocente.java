@@ -1,16 +1,9 @@
 
 package com.example.proyectofinalandroid.Controlador;
 
-import android.app.Service;
-import android.widget.Toast;
-
-import com.example.proyectofinalandroid.Exception.ContrasenaIncorrectaExcepcion;
 import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
-import com.example.proyectofinalandroid.Exception.UsuarioNoEncontradoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
-
-import java.io.Console;
 
 import retrofit2.Call;
 import retrofit2.Callback;

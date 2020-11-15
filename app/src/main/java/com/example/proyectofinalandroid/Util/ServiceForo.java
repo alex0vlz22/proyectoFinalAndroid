@@ -1,6 +1,5 @@
 package com.example.proyectofinalandroid.Util;
 
-import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ServiceForo {
@@ -29,7 +27,6 @@ public interface ServiceForo {
 
     @GET("/listarForos")
     public Call<List<Foro>> listarForos();
-
 
 
 }

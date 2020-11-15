@@ -3,14 +3,11 @@ package com.example.proyectofinalandroid.Vista;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Clase;
-import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Solicitud;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceClase;
-import com.example.proyectofinalandroid.Util.ServiceDocente;
 import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceSolicitud;
 
@@ -112,7 +109,7 @@ public class ViewEstudiante extends AppCompatActivity {
                                             validarSolicitud(codigo.getText().toString(), c.getIdDocente(), c);
                                             codigo.setText("");
                                             return;
-                                        }catch(Exception e){
+                                        } catch (Exception e) {
                                             imprimir(e.getMessage());
                                             return;
                                         }
@@ -224,7 +221,7 @@ public class ViewEstudiante extends AppCompatActivity {
         return;
     }
 
-    public void misClases(View view){
+    public void misClases(View view) {
         Intent intent = new Intent(this, ViewListadoClasesEstudiante.class);
         intent.putExtra("estudianteId", idEstudiante);
         startActivity(intent);
