@@ -32,9 +32,9 @@ public class ViewEstudiante extends AppCompatActivity {
     Solicitud nuevaSolicitud = new Solicitud();
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    // final String url = "http://192.168.1.9:1000";
+    final String url = "http://192.168.1.3:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

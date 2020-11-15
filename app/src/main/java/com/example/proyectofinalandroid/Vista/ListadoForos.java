@@ -15,6 +15,7 @@ import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceForo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,9 +29,9 @@ public class ListadoForos extends AppCompatActivity {
     CtlForo controladorForo;
     int idDocente;
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    // final String url = "http://192.168.1.9:1000";
+    final String url = "http://192.168.1.3:1000";
     long documento;
     List<Foro> listaForos;
 
@@ -58,18 +59,25 @@ public class ListadoForos extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         listaForos = response.body();
                         if (listaForos.size() != 0) {
-                            ArrayAdapter<Foro> adapter = new ArrayAdapter<Foro>(ListadoForos.this,
-                                    android.R.layout.simple_list_item_1, listaForos);
+
+                            List<String> nombresForos = new ArrayList<>();
+                            for (int i = 0; i < listaForos.size(); i++) {
+                                nombresForos.add(listaForos.get(i).toString());
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListadoForos.this,
+                                    android.R.layout.simple_list_item_1, nombresForos);
                             lstForos.setAdapter(adapter);
 
                             lstForos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    Toast.makeText(ListadoForos.this, listaForos.get(i).getTitulo().toString(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), ViewForoDocente.class);
+                                    intent.putExtra("idForo", listaForos.get(i).getId());
+                                    startActivity(intent);
                                 }
                             });
                         } else {
-                            String listaVacia[] = {"No has registrado puntos aún."};
+                            String listaVacia[] = {"No has registrado Foros aún."};
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(ListadoForos.this,
                                     android.R.layout.simple_list_item_1, listaVacia);
                             lstForos.setAdapter(adapter);

@@ -45,9 +45,9 @@ public class ViewRegistroForo extends AppCompatActivity {
     long documento;
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    //final String url = "http://192.168.1.9:1000";
+    final String url = "http://192.168.1.3:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,8 +155,8 @@ public class ViewRegistroForo extends AppCompatActivity {
                     switchActivo = true;
                 }
                 Foro foro = new Foro(titulo.getText().toString(), descripcion.getText().toString(),
-                        switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId());
-                foro.setGrado(grado.getSelectedItem().toString());
+                        switchActivo, Integer.valueOf(limiteParticipacion.getText().toString()), docente.getId(),grado.getSelectedItem().toString());
+
                 if (controladorForo.registrarse(foro, 0)) {
                     Toast.makeText(getApplicationContext(), "¡El foro ha sido registrado!", Toast.LENGTH_SHORT).show();
                     limpiar();

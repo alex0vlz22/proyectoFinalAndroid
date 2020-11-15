@@ -9,27 +9,6 @@ public class Foro {
     private int idDocente;
     private String grado;
 
-    public Foro() {
-
-    }
-
-    public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.activo = activo;
-        this.limiteParticipaciones = limiteParticipaciones;
-        this.idDocente = idDocente;
-    }
-
-    public Foro(int id, String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.activo = activo;
-        this.limiteParticipaciones = limiteParticipaciones;
-        this.idDocente = idDocente;
-    }
-
     public Foro(String titulo, String descripcion, boolean activo, int limiteParticipaciones, int idDocente, String grado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -97,10 +76,12 @@ public class Foro {
 
     @Override
     public String toString() {
-        String estado = "inactivo";
-        if (activo) {
-            estado = "activo";
-        }
-        return "Titulo: " + titulo + ", estado: " + estado;
+        return "Titulo= " + titulo +
+                " , descripcion= " + descripcion +
+                ", activo= " + activo +
+                ", limite de participaciones= " + limiteParticipaciones +
+                ", idDocente=" + idDocente +
+                ", grado='" + grado + '\'' +
+                '}';
     }
 }
