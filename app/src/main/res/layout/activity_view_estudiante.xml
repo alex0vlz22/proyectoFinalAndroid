@@ -30,7 +30,8 @@
         android:id="@+id/jbtnClases"
         android:layout_width="600px"
         android:layout_height="wrap_content"
-        android:text="Mis clases"/>
+        android:onClick="misClases"
+        android:text="Mis clases" />
 
     <Button
         android:id="@+id/jbtnEditarPerfil"

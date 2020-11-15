@@ -224,4 +224,15 @@ public class ViewEstudiante extends AppCompatActivity {
         return;
     }
 
+    public void misClases(View view){
+        Intent intent = new Intent(this, ViewListadoClasesEstudiante.class);
+        intent.putExtra("estudianteId", idEstudiante);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 }

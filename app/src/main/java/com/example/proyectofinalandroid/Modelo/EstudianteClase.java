@@ -39,4 +39,9 @@ public class EstudianteClase {
     public void setNombreClase(String nombreClase) {
         this.nombreClase = nombreClase;
     }
+
+    @Override
+    public String toString() {
+        return "Clase: " + nombreClase;
+    }
 }
