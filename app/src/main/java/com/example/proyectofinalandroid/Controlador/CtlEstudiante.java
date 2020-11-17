@@ -13,9 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CtlEstudiante {
 
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.3:1000";
+    //final String url = "http://192.168.1.3:1000";
 
     // esta variable es creada para comparar si su valor aún es 0 en unos lugares del código donde
     // no puedo retornar false ni una excepción, comparo si esta variable es diferente de 0, de ser

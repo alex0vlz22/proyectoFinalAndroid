@@ -1,6 +1,7 @@
 package com.example.proyectofinalandroid.Modelo;
 
 public class Participacion {
+
     private int id;
     private String descripcion;
     private int idParticipante;

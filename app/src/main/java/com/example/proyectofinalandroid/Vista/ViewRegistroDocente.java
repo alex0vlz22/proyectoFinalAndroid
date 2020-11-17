@@ -31,9 +31,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ViewRegistroDocente extends AppCompatActivity {
 
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.3:1000";
+    //final String url = "http://192.168.1.3:1000";
 
     EditText documento, nombre, apellido, telefono, correo, contrasena, calendario;
     CtlDocente controlador;

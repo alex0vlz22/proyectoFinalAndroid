@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C1000000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".Vista.ViewClaseEstudiante">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:layout_marginBottom="60px"
+        android:gravity="center_horizontal"
+        android:text="Foros de la clase"
+        android:textColor="@color/white"
+        android:textSize="80px" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="1000px"
+        android:padding="20px">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:text="Listado de foros de la clase"
-            android:textSize="30sp" />
+            android:layout_height="999px"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lstViewForos"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            <ListView
+                android:id="@+id/lstViewForos"
+                android:layout_width="match_parent"
+                android:layout_height="998px"
+                android:background="#97000000" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

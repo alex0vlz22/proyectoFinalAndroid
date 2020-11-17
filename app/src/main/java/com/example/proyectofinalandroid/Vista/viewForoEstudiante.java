@@ -31,30 +31,36 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class viewForoEstudiante extends AppCompatActivity {
     Foro foro = new Foro();
     ListView lista;
-    int idForo;
+    int idForo, idClase;
     int idDocente;
     List<Participacion> listaParticipaciones;
     Docente docente;
     TextView lblTitulo, lblDescripcion, lblDocente;
     int idEstudiante;
+
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.3:1000";
+    //final String url = "http://192.168.1.3:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_foro_estudiante);
+
         lblDescripcion = (TextView) findViewById(R.id.lblDescripcion);
         lblTitulo = (TextView) findViewById(R.id.lblTitulo);
+        lblDocente = (TextView) findViewById(R.id.lblNombreDocente);
         lista = (ListView) findViewById(R.id.lstViewParticipaciones);
+
         getSupportActionBar().hide();
+
         Bundle b = getIntent().getExtras();
         idForo = b.getInt("idForo");
         idEstudiante = b.getInt("idEstudiante");
+        idClase = b.getInt("idClase");
+
         setForo(idForo);
-        setDocente(idDocente);
         listarParticipaciones();
     }
 
@@ -107,7 +113,7 @@ public class viewForoEstudiante extends AppCompatActivity {
     private void setDocente(int idDocente) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
-        Call<Docente> doc = serviceDocente.buscar(idDocente);
+        Call<Docente> doc = serviceDocente.buscarPorId(idDocente);
         doc.enqueue(new Callback<Docente>() {
             @Override
             public void onResponse(Call<Docente> call, Response<Docente> response) {
@@ -147,6 +153,7 @@ public class viewForoEstudiante extends AppCompatActivity {
                             lblTitulo.setText(foro.getTitulo());
                             lblDescripcion.setText(foro.getDescripcion());
                             idDocente = foro.getIdDocente();
+                            setDocente(foro.getIdDocente());
                         } else {
                             Toast.makeText(viewForoEstudiante.this, "No se encontró el Foro", Toast.LENGTH_SHORT).show();
                         }
@@ -163,5 +170,13 @@ public class viewForoEstudiante extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Falló.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), ViewClaseEstudiante.class);
+        intent.putExtra("idClase", idClase);
+        intent.putExtra("idEstudiante", idEstudiante);
+        startActivity(intent);
     }
 }

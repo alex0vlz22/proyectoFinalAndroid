@@ -80,12 +80,10 @@ public class Foro {
 
     @Override
     public String toString() {
-        return "Titulo= " + titulo +
-                " , descripcion= " + descripcion +
-                ", activo= " + activo +
-                ", limite de participaciones= " + limiteParticipaciones +
-                ", idDocente=" + idDocente +
-                ", idClase='" + idClase + '\'' +
-                '}';
+        String estado = "inactivo";
+        if(activo){
+            estado = "activo";
+        }
+        return "Título: " + titulo + ", estado: " + estado;
     }
 }

@@ -24,10 +24,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewClaseEstudiante extends AppCompatActivity {
+
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.3:1000";
+    //final String url = "http://192.168.1.3:1000";
 
     List<Foro> listaForos;
     int idClase;
@@ -39,10 +40,12 @@ public class ViewClaseEstudiante extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_clase_estudiante);
         lstForos = (ListView) findViewById(R.id.lstViewForos);
+
         getSupportActionBar().hide();
         Bundle b = getIntent().getExtras();
         idClase = b.getInt("idClase");
         idEstudiante = b.getInt("idEstudiante");
+
         llenarLista();
     }
 
@@ -71,6 +74,7 @@ public class ViewClaseEstudiante extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     Intent intent = new Intent(getApplicationContext(), viewForoEstudiante.class);
                                     intent.putExtra("idForo", listaForos.get(i).getId());
+                                    intent.putExtra("idClase", idClase);
                                     intent.putExtra("idEstudiante", idEstudiante);
                                     startActivity(intent);
                                 }
@@ -94,5 +98,12 @@ public class ViewClaseEstudiante extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Falló.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewListadoClasesEstudiante.class);
+        intent.putExtra("estudianteId", idEstudiante);
+        startActivity(intent);
     }
 }

@@ -9,14 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/lblTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="24sp" />
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"/>
 
         <Space
             android:layout_width="match_parent"
@@ -26,45 +28,54 @@
             android:id="@+id/lblDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="40px"/>
 
         <TextView
             android:id="@+id/lblNombreDocente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            android:layout_marginBottom="40px"
+            android:gravity="center_horizontal"
+            android:textColor="#9E9E9E"
+            android:textSize="14sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+        <Button
+            android:id="@+id/jBtnComentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentar"
+            android:layout_marginBottom="60px"/>
 
         <TextView
             android:id="@+id/lbla"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:text="Todos los comentarios"
             android:textColor="#000000"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginBottom="40px"/>
 
-        <ListView
-            android:id="@+id/lstViewParticipaciones"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="900px"
+            android:padding="30px">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="899px">
+
+                <ListView
+                    android:id="@+id/lstViewParticipaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="898px"/>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
