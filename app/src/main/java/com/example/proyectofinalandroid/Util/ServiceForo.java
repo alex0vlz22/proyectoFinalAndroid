@@ -16,8 +16,8 @@ public interface ServiceForo {
     @POST("/guardarForo")
     public Call<Foro> guardar(@Body Foro foro);
 
-    @GET("/buscarForo/{id}")
-    public Call<Foro> buscar(@Path("id") int id);
+    @GET("/buscarForo/{idForo}")
+    public Call<Foro> buscar(@Path("idForo") int idForo);
 
     @GET("/listarForosDocente/{docenteId}")
     public Call<List<Foro>> listarForosPorDocente(@Path("docenteId") int docenteId);

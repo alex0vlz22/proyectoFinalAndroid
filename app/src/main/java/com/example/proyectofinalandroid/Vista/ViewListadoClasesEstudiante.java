@@ -27,9 +27,9 @@ public class ViewListadoClasesEstudiante extends AppCompatActivity {
 
     int idEstudiante;
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    //final String url = "http://192.168.1.3:1000";
+    final String url = "http://192.168.1.5:1000";
 
     List<EstudianteClase> lista = new ArrayList<EstudianteClase>();
     ListView listaView;

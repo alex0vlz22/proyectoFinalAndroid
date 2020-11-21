@@ -31,7 +31,7 @@ public interface ServiceParticipacion {
     public Call<List<Participacion>> listarForosPorParticipante(@Path("idParticipante") int idParticipante);
 
     @GET("/listarParticipacionPorParticipanteEnForo/{idParticipante}/{idForo}")
-    public List<Participacion> listarParticipacionesPorParticipanteEnForo(@Path("idParticipante") int idParticipante, @Path("idForo") int idForo);
+    public Call<List<Participacion>> listarParticipacionesPorParticipanteEnForo(@Path("idParticipante") int idParticipante, @Path("idForo") int idForo);
 
     @DELETE("/eliminarParticipacion/{id}")
     public Call<Participacion> eliminar(@Path("id") int id);

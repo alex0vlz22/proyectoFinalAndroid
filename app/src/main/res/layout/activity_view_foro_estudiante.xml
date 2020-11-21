@@ -22,7 +22,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="26dp" />
 
         <TextView
             android:id="@+id/lblDescripcion"
@@ -42,12 +42,30 @@
             android:textColor="#9E9E9E"
             android:textSize="14sp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <EditText
+            android:id="@+id/txtComentario"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Ingresa tu aporte aquí"
+            android:inputType="textMultiLine" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
         <Button
             android:id="@+id/jBtnComentar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comentar"
-            android:layout_marginBottom="60px"/>
+            android:layout_marginBottom="60px"
+            android:onClick="comentar"
+            android:text="Comentar" />
 
         <TextView
             android:id="@+id/lbla"

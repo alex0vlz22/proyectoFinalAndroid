@@ -26,9 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ViewClaseEstudiante extends AppCompatActivity {
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    //final String url = "http://192.168.1.3:1000";
+    final String url = "http://192.168.1.5:1000";
 
     List<Foro> listaForos;
     int idClase;

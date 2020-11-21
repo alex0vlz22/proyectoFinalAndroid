@@ -4,18 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
+import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 import com.example.proyectofinalandroid.Modelo.Participacion;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 import com.example.proyectofinalandroid.Util.ServiceForo;
 import com.example.proyectofinalandroid.Util.ServiceParticipacion;
 
@@ -29,7 +34,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class viewForoEstudiante extends AppCompatActivity {
+    EditText comentario;
     Foro foro = new Foro();
+    List<Participacion> listaParticipacionesEstudiante;
     ListView lista;
     int idForo, idClase;
     int idDocente;
@@ -37,11 +44,11 @@ public class viewForoEstudiante extends AppCompatActivity {
     Docente docente;
     TextView lblTitulo, lblDescripcion, lblDocente;
     int idEstudiante;
-
+    Estudiante estRetorno;
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    //final String url = "http://192.168.1.92:1000";
     // Malejo url
-    //final String url = "http://192.168.1.3:1000";
+    final String url = "http://192.168.1.5:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,7 @@ public class viewForoEstudiante extends AppCompatActivity {
         lblTitulo = (TextView) findViewById(R.id.lblTitulo);
         lblDocente = (TextView) findViewById(R.id.lblNombreDocente);
         lista = (ListView) findViewById(R.id.lstViewParticipaciones);
-
+        comentario = (EditText) findViewById(R.id.txtComentario);
         getSupportActionBar().hide();
 
         Bundle b = getIntent().getExtras();
@@ -62,6 +69,112 @@ public class viewForoEstudiante extends AppCompatActivity {
 
         setForo(idForo);
         listarParticipaciones();
+    }
+
+    public void comentar(View view) {
+        if (comentario.getText().toString().equals("") || comentario.getText().toString().length() < 6) {
+            Toast.makeText(this, "Ingrese al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+        } else {
+            if (limiteExcedido(idEstudiante, idForo)) {
+                Toast.makeText(this, "Has excedido el numero máximo de participaciones para este foro", Toast.LENGTH_LONG).show();
+            } else {
+                String[][] mensajeRes = {{""}};
+
+                Participacion p = new Participacion(comentario.getText().toString(), idEstudiante, idForo);
+                try {
+
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+                    ServiceParticipacion serviceParticipacion = retrofit.create(ServiceParticipacion.class);
+                    Call<Participacion> estAfter = serviceParticipacion.guardar(p);
+                    estAfter.enqueue(new Callback<Participacion>() {
+                        @Override
+                        public void onResponse(Call<Participacion> call, Response<Participacion> response) {
+                            try {
+                                if (response.isSuccessful()) {
+                                    Participacion participacion = response.body();
+                                    if (participacion == null) {
+                                        Toast.makeText(viewForoEstudiante.this, "No se pudo guardar", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(viewForoEstudiante.this, "Se guardó la participacion", Toast.LENGTH_SHORT).show();
+
+                                        listarParticipaciones();
+                                        comentario.setText("");
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Participacion> call, Throwable t) {
+                            Toast.makeText(viewForoEstudiante.this, "Error en el API REST al guardar la participacion", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+    private boolean limiteExcedido(int idEstudiante, int idForo) {
+        final boolean[][] retorno = {{true}};
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        ServiceParticipacion serviceParticipacion = retrofit.create(ServiceParticipacion.class);
+        Call<List<Participacion>> part = serviceParticipacion.listarParticipacionesPorParticipanteEnForo(idEstudiante, idForo);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            listaParticipacionesEstudiante = part.execute().body();
+            if (listaParticipacionesEstudiante.size() == 0) {
+                Toast.makeText(viewForoEstudiante.this, "Aun no has participado en este foro", Toast.LENGTH_SHORT).show();
+                return false;
+            } else if (listaParticipacionesEstudiante.size() >= foro.getLimiteParticipaciones()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        /*
+        part.enqueue(new Callback<List<Participacion>>() {
+            @Override
+            public void onResponse(Call<List<Participacion>> call, Response<List<Participacion>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        listaParticipacionesEstudiante = response.body();
+                        if (listaParticipacionesEstudiante.size() == 0) {
+                            Toast.makeText(viewForoEstudiante.this, "Aun no has participado en este foro", Toast.LENGTH_SHORT).show();
+                            retorno[0][0] = false;
+                            return;
+                        } else if (listaParticipacionesEstudiante.size() >= foro.getLimiteParticipaciones()) {
+                            retorno[0][0] = true;
+                            return;
+                        } else {
+                            retorno[0][0] = false;
+                            return;
+                        }
+                    }
+                } catch (
+                        Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Participacion>> call, Throwable t) {
+                Toast.makeText(viewForoEstudiante.this, "No se pudo obtener el numero de veces que has participado.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return retorno[0][0];
+        */
+
+
     }
 
     private void listarParticipaciones() {
@@ -78,7 +191,12 @@ public class viewForoEstudiante extends AppCompatActivity {
 
                             List<String> textoParticipaciones = new ArrayList<>();
                             for (int i = 0; i < listaParticipaciones.size(); i++) {
-                                textoParticipaciones.add(listaParticipaciones.get(i).toString());
+                                Estudiante estu = getEstu(listaParticipaciones.get(i).getIdParticipante());
+                                if (estRetorno != null) {
+                                    textoParticipaciones.add(estu.getNombre() + " " + estu.getApellido() + " : " + listaParticipaciones.get(i).getDescripcion());
+                                } else {
+                                    textoParticipaciones.add(listaParticipaciones.get(i).getDescripcion());
+                                }
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
                                     android.R.layout.simple_list_item_1, textoParticipaciones);
@@ -109,6 +227,37 @@ public class viewForoEstudiante extends AppCompatActivity {
         });
     }
 
+    private Estudiante getEstu(int idParticipante) {
+        try {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+            ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
+            Call<Estudiante> student = serviceEstudiante.buscarPorId(idParticipante);
+            student.enqueue(new Callback<Estudiante>() {
+                @Override
+                public void onResponse(Call<Estudiante> call, Response<Estudiante> response) {
+
+                    if (response.isSuccessful()) {
+                        estRetorno = response.body();
+                    } else {
+                        estRetorno = null;
+                    }
+                    return;
+
+                }
+
+                @Override
+                public void onFailure(Call<Estudiante> call, Throwable t) {
+                    Toast.makeText(viewForoEstudiante.this, "Falló algo en el ApiRest.", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return estRetorno;
+        } catch (Exception e) {
+            Toast.makeText(viewForoEstudiante.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private void setDocente(int idDocente) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
@@ -121,7 +270,7 @@ public class viewForoEstudiante extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         docente = response.body();
                         if (docente != null) {
-                            lblDocente.setText(docente.getNombre() + " " + docente.getApellido());
+                            lblDocente.setText("Nombre del docente: " + docente.getNombre() + " " + docente.getApellido());
                         } else {
                             Toast.makeText(viewForoEstudiante.this, "No se encontró el docente", Toast.LENGTH_SHORT).show();
                         }
@@ -150,8 +299,8 @@ public class viewForoEstudiante extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         foro = response.body();
                         if (foro != null) {
-                            lblTitulo.setText(foro.getTitulo());
-                            lblDescripcion.setText(foro.getDescripcion());
+                            lblTitulo.setText("Titulo del Foro: " + foro.getTitulo());
+                            lblDescripcion.setText("Descripcion: " + foro.getDescripcion());
                             idDocente = foro.getIdDocente();
                             setDocente(foro.getIdDocente());
                         } else {
