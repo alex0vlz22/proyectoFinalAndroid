@@ -2,9 +2,14 @@ package com.example.proyectofinalandroid.Vista;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Telephony;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
@@ -34,6 +38,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class viewForoEstudiante extends AppCompatActivity {
+    private Context mcontext = this;
     EditText comentario;
     Foro foro = new Foro();
     List<Participacion> listaParticipacionesEstudiante;
@@ -207,6 +212,56 @@ public class viewForoEstudiante extends AppCompatActivity {
                                     Toast.makeText(viewForoEstudiante.this, listaParticipaciones.get(i).getDescripcion(), Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                                @Override
+                                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(mcontext);
+                                    builder.setTitle("Vas a eliminar tu comentario");
+                                    builder.setMessage("¿Quieres Eliminar este comentario?");
+
+                                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int is) {
+                                            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+                                            ServiceParticipacion serviceParticipacion = retrofit.create(ServiceParticipacion.class);
+                                            Call<Participacion> parti = serviceParticipacion.eliminar(listaParticipaciones.get(i).getId());
+
+                                            parti.enqueue(new Callback<Participacion>() {
+                                                @Override
+                                                public void onResponse(Call<Participacion> call, Response<Participacion> response) {
+
+                                                    if (response.isSuccessful()) {
+                                                        Toast.makeText(viewForoEstudiante.this, "Se eliminó la participacion", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(viewForoEstudiante.this, "No se eliminó la participacion", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    listarParticipaciones();
+                                                    return;
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Participacion> call, Throwable t) {
+                                                    Toast.makeText(viewForoEstudiante.this, "Falló algo en el ApiRest.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
+
+                                        }
+                                    });
+                                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                    return true;
+                                }
+
+                            });
+
                         } else {
                             String listaVacia[] = {"Aún no hay comentarios. ¡Sé el Primero!"};
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewForoEstudiante.this,
