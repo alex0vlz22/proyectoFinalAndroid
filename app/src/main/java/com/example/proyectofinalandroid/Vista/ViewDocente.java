@@ -49,6 +49,12 @@ public class ViewDocente extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void editarPerfil(View view){
+        Intent intent = new Intent(this, ViewEditarPerfilDocente.class);
+        intent.putExtra("idDocente", idDocente);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);

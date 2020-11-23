@@ -37,6 +37,7 @@
         android:id="@+id/jbtnEditarPerfil"
         android:layout_width="600px"
         android:layout_height="wrap_content"
+        android:onClick="editarPerfil"
         android:text="Editar perfil"
         app:backgroundTint="#D53535" />
 

@@ -3,7 +3,6 @@
     package="com.example.proyectofinalandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -13,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoFinalAndroid">
-        <activity android:name=".Vista.viewForoEstudiante"></activity>
+        <activity android:name=".Vista.ViewEditarPerfilEstudiante"></activity>
+        <activity android:name=".Vista.ViewEditarPerfilDocente" />
+        <activity android:name=".Vista.viewForoEstudiante" />
         <activity android:name=".Vista.ViewClaseEstudiante" />
         <activity android:name=".Vista.ViewForoDocente" />
         <activity android:name=".Vista.ViewListadoClasesEstudiante" />

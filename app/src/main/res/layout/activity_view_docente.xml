@@ -43,8 +43,9 @@
     <Button
         android:layout_width="600px"
         android:layout_height="wrap_content"
+        android:onClick="editarPerfil"
         android:text="Editar perfil"
-        android:textSize="18dp"/>
+        android:textSize="18dp" />
 
 
 </LinearLayout>

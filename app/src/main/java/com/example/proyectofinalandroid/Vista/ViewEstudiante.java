@@ -227,6 +227,12 @@ public class ViewEstudiante extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void editarPerfil(View view){
+        Intent intent = new Intent(this, ViewEditarPerfilEstudiante.class);
+        intent.putExtra("idEstudiante", idEstudiante);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed() {
         Intent i = new Intent(this, MainActivity.class);
