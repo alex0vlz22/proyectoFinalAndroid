@@ -51,9 +51,9 @@ public class viewForoEstudiante extends AppCompatActivity {
     int idEstudiante;
     Estudiante estRetorno;
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.5:1000";
+    //final String url = "http://192.168.1.5:1000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +203,7 @@ public class viewForoEstudiante extends AppCompatActivity {
                                     textoParticipaciones.add(listaParticipaciones.get(i).getDescripcion());
                                 }
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(viewForoEstudiante.this,
                                     android.R.layout.simple_list_item_1, textoParticipaciones);
                             lista.setAdapter(adapter);
                             lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C1000000"
+    android:background="#00FFFFFF"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".Vista.ViewClaseEstudiante">
@@ -17,7 +17,8 @@
         android:layout_marginBottom="60px"
         android:gravity="center_horizontal"
         android:text="Foros de la clase"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textColorHint="#000000"
         android:textSize="80px" />
 
     <ScrollView

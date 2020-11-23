@@ -26,9 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ViewClaseEstudiante extends AppCompatActivity {
 
     // Junior url
-    //final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.92:1000";
     // Malejo url
-    final String url = "http://192.168.1.5:1000";
+    //final String url = "http://192.168.1.5:1000";
 
     List<Foro> listaForos;
     int idClase;
@@ -65,7 +65,7 @@ public class ViewClaseEstudiante extends AppCompatActivity {
                             for (int i = 0; i < listaForos.size(); i++) {
                                 nombresForos.add(listaForos.get(i).toString());
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ViewClaseEstudiante.this,
                                     android.R.layout.simple_list_item_1, nombresForos);
                             lstForos.setAdapter(adapter);
 
