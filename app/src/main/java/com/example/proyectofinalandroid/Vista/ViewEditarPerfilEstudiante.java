@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceEstudiante;
@@ -47,8 +48,62 @@ public class ViewEditarPerfilEstudiante extends AppCompatActivity {
 
     }
 
-    private void guardarCambios(View view) {
+    public void guardarCambios(View view) {
+        if (validarCampos()) {
+            imprimir("Por favor rellena los campos adecuadamente.");
+        } else {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+            ServiceEstudiante serviceEstudiante = retrofit.create(ServiceEstudiante.class);
+            Call<Estudiante> student = serviceEstudiante.modificar(generarEstudiante());
+            student.enqueue(new Callback<Estudiante>() {
+                @Override
+                public void onResponse(Call<Estudiante> call, Response<Estudiante> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            Estudiante est = response.body();
+                            imprimir("Los cambios han sido guardados.");
+                            onBackPressed();
+                        } else {
+                            imprimir("Algo salió mal guardando los cambios.");
+                            return;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        imprimir(e.getMessage());
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<Estudiante> call, Throwable t) {
+                    Toast.makeText(ViewEditarPerfilEstudiante.this, "Falló.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private Estudiante generarEstudiante() {
+        Estudiante estudiante = new Estudiante();
+        estudiante.setDocumento(Long.parseLong(this.documento.getText().toString()));
+        estudiante.setNombre(this.nombre.getText().toString());
+        estudiante.setApellido(this.apellido.getText().toString());
+        estudiante.setTelefono(Long.parseLong(this.telefono.getText().toString()));
+        estudiante.setCorreo(this.correo.getText().toString());
+        estudiante.setContrasena(this.contrasena.getText().toString());
+        estudiante.setFechaNacimiento(this.calendario.getText().toString());
+        String grado = gradoNumero.getSelectedItem().toString() + gradoLetra.getSelectedItem().toString();
+        estudiante.setGrado(grado);
+        return estudiante;
+    }
+
+    private boolean validarCampos() {
+        if (documento.getText().toString().equals("") || nombre.getText().toString().equals("") ||
+                apellido.getText().toString().equals("") || telefono.getText().toString().equals("") ||
+                correo.getText().toString().equals("") || contrasena.getText().toString().equals("") ||
+                calendario.getText().toString().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void inicializarComponentes() {

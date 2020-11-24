@@ -10,9 +10,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.proyectofinalandroid.Exception.OcurrioUnErrorGuardandoException;
 import com.example.proyectofinalandroid.Modelo.Docente;
+import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.R;
 import com.example.proyectofinalandroid.Util.ServiceDocente;
+import com.example.proyectofinalandroid.Util.ServiceEstudiante;
 
 import java.util.Calendar;
 
@@ -58,6 +61,55 @@ public class ViewEditarPerfilDocente extends AppCompatActivity {
         getSupportActionBar().hide();
         generarCalendar();
         llenarDocente();
+    }
+
+    public void guardarCambios(View view){
+        if (validarCampos()) {
+            Toast.makeText(this, "Llena todos los campos adecuadamente.", Toast.LENGTH_SHORT).show();
+        } else {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+            ServiceDocente serviceDocente = retrofit.create(ServiceDocente.class);
+            Call<Docente> docent = serviceDocente.modificar(generarDocente(), idDocente);
+            docent.enqueue(new Callback<Docente>() {
+                @Override
+                public void onResponse(Call<Docente> call, Response<Docente> response) {
+                    if (response.isSuccessful()) {
+                        Docente docente = response.body();
+                        if (docente == null) {
+                            imprimir("No se actualizó correctamente el docente.");
+                        } else {
+                            imprimir("El docente ha sido actualizado exitosamente.");
+                            onBackPressed();
+                        }
+                    } else {
+                        imprimir("Error, la respuesta no fue exitosa.");
+                    }
+                }
+                @Override
+                public void onFailure(Call<Docente> call, Throwable t) {
+                    imprimir("Falló actualizando el docente.");
+                }
+            });
+        }
+
+    }
+
+    private Docente generarDocente() {
+        Docente docente = new Docente(Long.parseLong(this.documento.getText().toString()), this.nombre.getText().toString()
+                , this.apellido.getText().toString(), Long.parseLong(this.telefono.getText().toString()), this.correo.getText().toString(),
+                this.contrasena.getText().toString(), this.calendario.getText().toString());
+        return docente;
+    }
+
+    private boolean validarCampos() {
+        if (documento.getText().toString().equals("") || nombre.getText().toString().equals("") ||
+                apellido.getText().toString().equals("") || telefono.getText().toString().equals("") ||
+                correo.getText().toString().equals("") || contrasena.getText().toString().equals("") ||
+                calendario.getText().toString().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void generarCalendar() {

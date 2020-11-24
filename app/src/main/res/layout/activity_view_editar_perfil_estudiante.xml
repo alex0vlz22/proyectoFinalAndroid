@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.ViewRegistroEstudiante">
+    tools:context=".Vista.ViewEditarPerfilEstudiante">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -120,7 +120,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Ej: edlopez1996@gmail.com"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:enabled="false"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -213,7 +214,8 @@
                 android:id="@+id/jbtnActualizar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¡Guardar cambios!"/>
+                android:onClick="guardarCambios"
+                android:text="¡Guardar cambios!" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

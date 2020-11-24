@@ -20,8 +20,8 @@ public interface ServiceDocente {
     @GET("/buscarDocente/{documento}")
     public Call<Docente> buscar(@Path("documento") long documento);
 
-    @PUT("/modificarDocente")
-    public Call<Docente> modificar(@Body Docente docente);
+    @PUT("/modificarDocente/{id}")
+    public Call<Docente> modificar(@Body Docente docente, @Path("id") int id);
 
     @DELETE("/eliminarDocente/{documento}")
     public Call<Docente> eliminar(@Path("documento") long documento);
