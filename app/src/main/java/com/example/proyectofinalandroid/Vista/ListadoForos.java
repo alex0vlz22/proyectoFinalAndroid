@@ -43,9 +43,11 @@ public class ListadoForos extends AppCompatActivity {
         setContentView(R.layout.activity_listado_foros);
         lstForos = (ListView) findViewById(R.id.lstView);
         controladorForo = new CtlForo();
+
         Bundle b = getIntent().getExtras();
         documento = b.getLong("documento");
         idDocente = b.getInt("docenteId");
+
         getSupportActionBar().hide();
         llenarLista();
     }
@@ -75,6 +77,8 @@ public class ListadoForos extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     Intent intent = new Intent(getApplicationContext(), ViewForoDocente.class);
                                     intent.putExtra("idForo", listaForos.get(i).getId());
+                                    intent.putExtra("idDocente", idDocente);
+                                    intent.putExtra("documento", documento);
                                     startActivity(intent);
                                 }
                             });

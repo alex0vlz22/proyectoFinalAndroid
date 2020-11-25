@@ -297,7 +297,6 @@ public class viewForoEstudiante extends AppCompatActivity {
                         estRetorno = null;
                     }
                     return;
-
                 }
 
                 @Override

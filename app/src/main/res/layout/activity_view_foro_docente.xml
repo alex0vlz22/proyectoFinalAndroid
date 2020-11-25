@@ -1,83 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="1900px"
-    tools:context=".Vista.ViewForoDocente">
+    tools:context=".Vista.ViewForoDocente"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/lbl2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ya han participado"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/txtCompletados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
-        <TextView
-            android:id="@+id/lbl3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Faltan por participar"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/txtSinCompletar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
+        android:layout_height="1900px">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1899px"
             android:orientation="vertical">
 
-            <ListView
+            <!-- Contenido, títulos y listas. -->
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="224dp" />
+                android:layout_height="wrap_content"
+                android:text="Ya han participado"
+                android:textColor="@color/black"
+                android:textSize="32px"
+                android:layout_marginBottom="30px"
+                android:gravity="center_horizontal" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="260px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="260px"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/jlstYaHanParticipado"
+                        android:layout_width="match_parent"
+                        android:layout_height="260px"
+                        android:scrollbarSize="2px"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Faltan por participar"
+                android:layout_marginTop="40px"
+                android:textColor="@color/black"
+                android:textSize="32px"
+                android:layout_marginBottom="30px"
+                android:gravity="center_horizontal"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="260px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="260px"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/jlstFaltanPorParticipar"
+                        android:layout_width="match_parent"
+                        android:layout_height="260px"
+                        android:scrollbarSize="2px"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Participaciones"
+                android:layout_marginTop="40px"
+                android:textColor="@color/black"
+                android:textSize="32px"
+                android:layout_marginBottom="30px"
+                android:gravity="center_horizontal" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="300px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300px"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/jlstParticipaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="300px"
+                        android:scrollbarSize="2px"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
-        <TextView
-            android:id="@+id/lbl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Participaciones"
-            android:textColor="#000000"
-            android:textSize="24sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="34dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="244dp" />
-        </LinearLayout>
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
