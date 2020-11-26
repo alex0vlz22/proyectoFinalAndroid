@@ -69,7 +69,7 @@ public class ViewListadoClasesEstudiante extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
                                     Intent intent = new Intent(getApplicationContext(), ViewClaseEstudiante.class);
-                                    intent.putExtra("idClase", lista.get(i).getId());
+                                    intent.putExtra("idClase", lista.get(i).getIdClase());
                                     intent.putExtra("idEstudiante", idEstudiante);
                                     startActivity(intent);
                                 }

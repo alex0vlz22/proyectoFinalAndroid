@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         if (response.isSuccessful()) {
                             Docente doc = response.body();
-                            if (!doc.getContrasena().equalsIgnoreCase(contrasena.getText().toString())) {
+                            if (!doc.getContrasena().equals(contrasena.getText().toString())) {
                                 imprimir("contraseña incorrecta");
                                 auxDocente = null;
                                 return;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                                     try {
                                         if (response.isSuccessful()) {
                                             Estudiante est = response.body();
-                                            if (!est.getContrasena().equalsIgnoreCase(contrasena.getText().toString())) {
+                                            if (!est.getContrasena().equals(contrasena.getText().toString())) {
                                                 imprimir("contraseña incorrecta");
                                                 return;
                                             }
