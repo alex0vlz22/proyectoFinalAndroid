@@ -35,9 +35,10 @@ public class ViewEditarPerfilEstudiante extends AppCompatActivity {
     EditText documento, nombre, apellido, telefono, correo, contrasena;
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.2:1000";
     // Malejo url
     //final String url = "http://192.168.1.5:1000";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -16,10 +16,29 @@
             android:layout_height="1200px"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="71dp" />
+
+            <TextView
+                android:id="@+id/txtListadoForos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Listado de Foros"
+                android:textColor="#000000"
+                android:textSize="30sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="58dp" />
+
             <ListView
                 android:id="@+id/lstView"
                 android:layout_width="wrap_content"
-                android:layout_height="1200px" />
+                android:layout_height="378dp">
+
+            </ListView>
 
         </LinearLayout>
     </ScrollView>

@@ -1,5 +1,6 @@
 package com.example.proyectofinalandroid.Util;
 
+import com.example.proyectofinalandroid.Modelo.Estudiante;
 import com.example.proyectofinalandroid.Modelo.Foro;
 
 import java.util.List;
@@ -24,6 +25,15 @@ public interface ServiceForo {
 
     @GET("/listarForosPorClase/{idClase}")
     public Call<List<Foro>> listarForosPorClase(@Path("idClase") int idClase);
+
+    @GET("/listarEstudiantesClase/{idClase}")
+    public Call<List<Estudiante>> listarEstudiantesClase(@Path("idClase") int idClase);
+
+    @GET("/listarEstudiantesNoParticiparon/{idForo}")
+    public Call<List<Estudiante>> listarEstudiantesNoParticiparon(@Path("idForo") int idForo);
+
+    @GET("/listarEstudiantesQueParticiparon/{idForo}")
+    public Call<List<Estudiante>> listarEstudiantesParticiparon(@Path("idForo") int idForo);
 
     @DELETE("/eliminarForo/{id}")
     public Call<Foro> eliminar(@Path("id") int id);

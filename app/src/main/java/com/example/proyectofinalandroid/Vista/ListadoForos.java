@@ -30,9 +30,10 @@ public class ListadoForos extends AppCompatActivity {
     int idDocente;
 
     // Junior url
-    final String url = "http://192.168.1.92:1000";
+    final String url = "http://192.168.1.2:1000";
     // Malejo url
     //final String url = "http://192.168.1.5:1000";
+
 
     long documento;
     List<Foro> listaForos;
